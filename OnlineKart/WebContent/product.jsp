@@ -17,8 +17,9 @@
 		$('input.input-mini').keyup(function(event) {
 			var quantity = $('input.input-mini').val();
 			var totalPrice = quantity * productPrice;
+			var subTotal = "Rs." + totalPrice + ".0";
 			if ($.isNumeric(quantity)) {
-				$('td.price').text(totalPrice);
+				$('td.price').text(subTotal);
 			}
 		})
 	});
