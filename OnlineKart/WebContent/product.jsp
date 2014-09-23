@@ -11,6 +11,18 @@
 <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
 <script src="bootstrap/scripts/jquery-1.7.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
+<script>
+	var productPrice = "${product.productPrice}";
+	$(function() {
+		$('input.input-mini').keyup(function(event) {
+			var quantity = $('input.input-mini').val();
+			var totalPrice = quantity * productPrice;
+			if ($.isNumeric(quantity)) {
+				$('td.price').text(totalPrice);
+			}
+		})
+	});
+</script>
 </head>
 <body>
 	<!--Header-->
@@ -79,13 +91,49 @@
 				<form action="/addProducts" method="post">
 					<input type="hidden" value="${product.productId}" name="id">
 					<p class="lead">${product.productName}</p>
-					<button type="button" class="btn btn-primary pull-right">Add
-						to Cart</button>
+					<a href="#themodal" role="button"
+						class="btn btn-primary pull-right" data-toggle="modal">Buy Now</a>
 					<p>${product.productPrice}</p>
 					<p>${product.productManufacturer}</p>
 					<br>
 					<p>${product.description}</p>
 				</form>
+			</div>
+			<div id="themodal" class="modal hide fade">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h3>Add Item to the Cart</h3>
+				</div>
+
+				<div class="modal-body">
+					<p>Product - ${product.productName} is added to your Shopping
+						Cart</p>
+					<hr />
+					<div>
+						<table class="table table-condensed">
+							<thead>
+								<tr>
+									<td>Product</td>
+									<td>Quantity</td>
+									<td>Price</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="active">
+									<td><img src="http://placehold.it/125x89" /></td>
+									<td><input class="input-mini" type="text" placeholder=""></td>
+									<td class="price">${product.productPrice}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="modal-footer">
+						<a href="#" class="btn" data-dismiss="modal">Close</a> <a
+							id="yesbutton" href="#" class="btn btn-primary">Add to Cart</a>
+					</div>
+				</div>
 			</div>
 			<div class="span6">
 				<img src="http://placehold.it/250x405" />
