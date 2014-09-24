@@ -11,19 +11,7 @@
 <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
 <script src="bootstrap/scripts/jquery-1.7.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
-<script>
-	var productPrice = "${product.productPrice}";
-	$(function() {
-		$('input.input-mini').keyup(function(event) {
-			var quantity = $('input.input-mini').val();
-			var totalPrice = quantity * productPrice;
-			var subTotal = "Rs." + totalPrice + ".0";
-			if ($.isNumeric(quantity)) {
-				$('td.price').text(subTotal);
-			}
-		})
-	});
-</script>
+
 </head>
 <body>
 	<!--Header-->
@@ -123,7 +111,7 @@
 							<tbody>
 								<tr class="active">
 									<td><img src="http://placehold.it/125x89" /></td>
-									<td><input class="input-mini" type="text" placeholder=""></td>
+									<td><input class="input-mini" type="text" placeholder="1"></td>
 									<td class="price">${product.productPrice}</td>
 								</tr>
 							</tbody>
@@ -174,5 +162,33 @@
 			</div>
 		</div>
 	</div>
+
+	<script>
+		var productPrice = "${product.productPrice}";
+		// This script is used to update the price
+		// based on the provided quantity
+		$(function() {
+			$('input.input-mini').keyup(function(event) {
+				var quantity = $('input.input-mini').val();
+				var totalPrice = quantity * productPrice;
+
+				var subTotal = totalPrice + ".0";
+				if ($.isNumeric(quantity)) {
+					$('td.price').text(subTotal);
+				}
+			});
+		});
+		// This script is used to update the price
+		// when the quantity field is empty
+		$(function() {
+			$('input.input-mini').focusout(function() {
+				var quant = $('input.input-mini').val();
+				if (quant == '') {
+					var totalPrice = productPrice;
+					$('td.price').text(totalPrice);
+				}
+			});
+		});
+	</script>
 </body>
 </html>
