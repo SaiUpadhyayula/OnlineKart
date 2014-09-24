@@ -44,7 +44,7 @@ public class DispatcherServlet extends HttpServlet {
 					.getProductBySubCategory(subCategory);
 			String categoryName = productService
 					.getCategoryBySubCategory(subCategory);
-			
+
 			getServletContext().setAttribute("categoryProducts",
 					categoryProducts);
 			getServletContext().setAttribute("catName", categoryName);
@@ -75,8 +75,10 @@ public class DispatcherServlet extends HttpServlet {
 			getServletContext().setAttribute("product", product);
 
 			// Set Product Category and SubCategory in the Request Attribute
-			request.setAttribute("productCategory", product.getCategory());
-			request.setAttribute("productSubCategory", product.getSubCategory());
+			getServletContext().setAttribute("productCategory",
+					product.getCategory());
+			getServletContext().setAttribute("productSubCategory",
+					product.getSubCategory());
 		}
 
 		// Forward the request to appropriate
@@ -116,18 +118,16 @@ public class DispatcherServlet extends HttpServlet {
 				Product p = service.getProductDetails(productID);
 
 				cart.add(productID, p);
+
+				System.out.println("Productid is " + prodID);
 			}
+
 		}
 		// If user request to purchase the products
 		else if (userPath.equals("/purchase")) {
 			// TODO: Add code to purchase products
 		}
 
-		// Forward the request to appropriate
-		// views (JSP's)
-		RequestDispatcher rd = getServletContext()
-				.getRequestDispatcher(postURL);
-		rd.forward(request, response);
 	}
 
 }

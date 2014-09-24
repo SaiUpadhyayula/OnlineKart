@@ -11,7 +11,8 @@
 <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
 <script src="bootstrap/scripts/jquery-1.7.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
-
+<style>
+</style>
 </head>
 <body>
 	<!--Header-->
@@ -44,8 +45,9 @@
 				</c:forEach>
 			</ul>
 			<ul class="nav pull-right">
-				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#">X Items <b class="caret"></b>
+				<li class="dropdown"><a id="cartitem" class="dropdown-toggle"
+					data-toggle="dropdown" href="#">0 Items in Cart <b
+						class="caret"></b>
 				</a>
 					<ul class="dropdown-menu">
 						<li><a tabindex="-1" href="/">View Cart</a></li>
@@ -77,16 +79,14 @@
 		</ul>
 		<div class="row">
 			<div class="span6">
-				<form action="/addProducts" method="post">
-					<input type="hidden" value="${product.productId}" name="id">
-					<p class="lead">${product.productName}</p>
-					<a href="#themodal" role="button"
-						class="btn btn-primary pull-right" data-toggle="modal">Buy Now</a>
-					<p>${product.productPrice}</p>
-					<p>${product.productManufacturer}</p>
-					<br>
-					<p>${product.description}</p>
-				</form>
+				<input type="hidden" value="${product.productId}" name="id">
+				<p class="lead">${product.productName}</p>
+				<a href="#themodal" role="button" id="btn-buynow"
+					class="btn btn-primary pull-right" data-toggle="modal">Buy Now</a>
+				<p>${product.productPrice}</p>
+				<p>${product.productManufacturer}</p>
+				<br>
+				<p>${product.description}</p>
 			</div>
 			<div id="themodal" class="modal hide fade">
 				<div class="modal-header">
@@ -119,8 +119,14 @@
 					</div>
 
 					<div class="modal-footer">
-						<a href="#" class="btn" data-dismiss="modal">Close</a> <a
-							id="yesbutton" href="#" class="btn btn-primary">Add to Cart</a>
+						<form method="post" class="addCartForm">
+							<input type="hidden" value="${product.productId}" name="hiddenid">
+							<button class="btn btn-primary pull-left" id="addtocart">Add
+								to Cart</button>
+							<a href="#" class="btn" data-dismiss="modal">Continue
+								Shopping</a> <a id="yesbutton" href="#" class="btn btn-primary">Proceed
+								to Checkout</a>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -165,6 +171,8 @@
 
 	<script>
 		var productPrice = "${product.productPrice}";
+		var sessionVariable = "${sessionScope.cart.numberOfItems}";
+		var productId = "${product.productId}";
 		// This script is used to update the price
 		// based on the provided quantity
 		$(function() {
@@ -187,6 +195,29 @@
 					var totalPrice = productPrice;
 					$('td.price').text(totalPrice);
 				}
+			});
+		});
+
+		
+		// TODO
+		$(function() {
+			var form = $('addCartForm')
+			$('#addtocart').click(function(event) {
+				$('#themodal').modal('toggle');
+				var prodid = $('#hiddenid').val();
+				$.ajax({
+					type : "POST",
+					method : "addProducts",
+					data : prodid,
+					success : function() {
+						var cartData = sessionVariable + "Items in Cart";
+						alert(cartData);
+						$("#cartitem").text(cartData);
+					},
+					error : function(status, er) {
+						alert("status:" + status + ",error:" + er);
+					}
+				});
 			});
 		});
 	</script>
