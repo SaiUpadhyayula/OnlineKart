@@ -73,7 +73,7 @@ public class DispatcherServlet extends HttpServlet {
 			Product product = (Product) productService
 					.getProductDetails(productId);
 			getServletContext().setAttribute("product", product);
-
+			getServletContext().setAttribute("productID", productId);
 			// Set Product Category and SubCategory in the Request Attribute
 			getServletContext().setAttribute("productCategory",
 					product.getCategory());
@@ -108,7 +108,8 @@ public class DispatcherServlet extends HttpServlet {
 				hs.setAttribute("cart", cart);
 			}
 
-			int prodID = Integer.parseInt(request.getParameter("id"));
+			int prodID = Integer.parseInt((getServletContext().getAttribute(
+					"productID").toString()));
 			Integer productID = new Integer(prodID);
 			// Check whether the product id is not null
 			// If not null then add the product to the cart
@@ -118,8 +119,10 @@ public class DispatcherServlet extends HttpServlet {
 				Product p = service.getProductDetails(productID);
 
 				cart.add(productID, p);
-
-				System.out.println("Productid is " + prodID);
+				int numberOfItems = cart.getNumberOfItems();
+				if (numberOfItems == 0) {
+					hs.setAttribute("numberOfItems", numberOfItems);
+				}
 			}
 
 		}

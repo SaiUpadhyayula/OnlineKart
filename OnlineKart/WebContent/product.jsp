@@ -9,9 +9,20 @@
 <link href="bootstrap/css/shop-homepae.css" rel="stylesheet" />
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
 <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
+<link
+	href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css"
+	rel="stylesheet">
 <script src="bootstrap/scripts/jquery-1.7.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
 <style>
+#cartitem {
+	display: inline;
+}
+
+#welcome {
+	display: inline;
+	height: 20px;
+}
 </style>
 </head>
 <body>
@@ -46,17 +57,18 @@
 			</ul>
 			<ul class="nav pull-right">
 				<li class="dropdown"><a id="cartitem" class="dropdown-toggle"
-					data-toggle="dropdown" href="#">0 Items in Cart <b
-						class="caret"></b>
-				</a>
+					data-toggle="dropdown" href="#"><span id="itemcount"
+						class="btn btn-default btn-sm"><i
+							class="icon-shopping-cart icon-red"></i>0 Items in Cart <b
+							class="caret"></b></span></a>
 					<ul class="dropdown-menu">
 						<li><a tabindex="-1" href="/">View Cart</a></li>
 						<li><a tabindex="-1" href="/">Checkout Cart</a></li>
 						<li><a tabindex="-1" href="/">Clear Cart</a></li>
 					</ul></li>
 				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#">Welcome User <b class="caret"></b>
-				</a>
+					data-toggle="dropdown" href="#"><span id="welcome"
+						class="btn btn-default btn-sm">User Name<b class="caret"></b></span></a>
 					<ul class="dropdown-menu">
 						<li><a tabindex="-1" href="/">Account</a></li>
 						<li><a tabindex="-1" href="/">Orders</a></li>
@@ -79,7 +91,7 @@
 		</ul>
 		<div class="row">
 			<div class="span6">
-				<input type="hidden" value="${product.productId}" name="id">
+				<input type="hidden" value="${productID}" name="id">
 				<p class="lead">${product.productName}</p>
 				<a href="#themodal" role="button" id="btn-buynow"
 					class="btn btn-primary pull-right" data-toggle="modal">Buy Now</a>
@@ -120,7 +132,6 @@
 
 					<div class="modal-footer">
 						<form method="post" class="addCartForm">
-							<input type="hidden" value="${product.productId}" name="hiddenid">
 							<button class="btn btn-primary pull-left" id="addtocart">Add
 								to Cart</button>
 							<a href="#" class="btn" data-dismiss="modal">Continue
@@ -171,8 +182,8 @@
 
 	<script>
 		var productPrice = "${product.productPrice}";
-		var sessionVariable = "${sessionScope.cart.numberOfItems}";
-		var productId = "${product.productId}";
+		var sessionVariable = "${numberOfItems}";
+		var productId = "${productID}";
 		// This script is used to update the price
 		// based on the provided quantity
 		$(function() {
@@ -198,26 +209,32 @@
 			});
 		});
 
-		
 		// TODO
 		$(function() {
-			var form = $('addCartForm')
 			$('#addtocart').click(function(event) {
 				$('#themodal').modal('toggle');
-				var prodid = $('#hiddenid').val();
+				alert(sessionVariable);
 				$.ajax({
-					type : "POST",
-					method : "addProducts",
-					data : prodid,
-					success : function() {
-						var cartData = sessionVariable + "Items in Cart";
-						alert(cartData);
-						$("#cartitem").text(cartData);
+					method : 'POST',
+					url : 'addProducts',
+					data : productId,
+					success : function(status, xhr) {
+						if (sessionVariable == '1') {
+							var cartData = sessionVariable + " Item in Cart";
+						} else {
+							var cartData = sessionVariable + " Items in Cart";
+						}
+						$('#itemcount').click(function() {
+							var icon = $(this).children("i");
+							$(this).text(cartData);
+						});
+
 					},
-					error : function(status, er) {
-						alert("status:" + status + ",error:" + er);
+					error : function(xhr, status, error) {
+						alert('Error Occured: ' + status);
 					}
 				});
+
 			});
 		});
 	</script>
