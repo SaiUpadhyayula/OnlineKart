@@ -6,11 +6,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.servlet.jsp.PageContext;
+
 import com.shopping.beans.Product;
 
 public class ShoppingCart {
 
-	private HashMap<Integer, ShoppingCartItem> itemsMap = null;
+	private static HashMap<Integer, ShoppingCartItem> itemsMap = null;
 	private int numberOfItems = 0;
 	private final static Logger LOGGER = Logger.getLogger(ShoppingCart.class
 			.getName());
@@ -21,20 +23,9 @@ public class ShoppingCart {
 
 	// Adds items to the shopping cart
 	public synchronized void add(int productID, Product p) {
-		// If the product is already in the cart
-		// Increment the Quantity
-		if (itemsMap.containsKey(productID)) {
-			ShoppingCartItem scItem = itemsMap.get(productID);
-			scItem.incrementQuantity();
-			LOGGER.info("Quantity is :" + scItem.getQuantity());
-		}
-		// If the Product is not already in the cart
-		// Create a ShoppingCart Item and put it in the cart
-		else {
-			ShoppingCartItem newItem = new ShoppingCartItem(p);
-			itemsMap.put(productID, newItem);
-			LOGGER.info("Quantity is :" + newItem.getQuantity());
-		}
+		ShoppingCartItem newItem = new ShoppingCartItem(p);
+		itemsMap.put(productID, newItem);
+		LOGGER.info("Quantity is :" + newItem.getQuantity());
 	}
 
 	// Remove items from the shopping cart
@@ -90,5 +81,18 @@ public class ShoppingCart {
 		}
 
 		return amount;
+	}
+
+	// Checks whether a particular product
+	// is already present in the cart
+	public static boolean checkProductInCart(PageContext pageContext) {
+		int productID = (int) pageContext.findAttribute("productID");
+		if(itemsMap==null)
+		itemsMap = new HashMap<Integer, ShoppingCartItem>();
+		if (itemsMap.containsKey(productID)) {
+			LOGGER.info("Product already exists in the cart");
+			return true;
+		}
+		return false;
 	}
 }

@@ -16,7 +16,7 @@
 	<!--Header-->
 	<nav class="navbar navbar-inverse" role="navigation">
 	<div class="navbar-inner">
-		<a class="brand" href="/home.jsp">Shopping Kart</a> <a
+		<a class="brand" href="home.jsp">Shopping Kart</a> <a
 			class="btn btn-navbar" data-toggle="collapse"
 			data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 			class="icon-bar"></span> <span class="icon-bar"></span>

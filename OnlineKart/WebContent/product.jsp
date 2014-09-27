@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://onlinekart.com/commonFunctions" prefix="f"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -29,7 +30,7 @@
 	<!--Header-->
 	<nav class="navbar navbar-inverse" role="navigation">
 	<div class="navbar-inner">
-		<a class="brand" href="/home.jsp">OnlineKart</a> <a
+		<a class="brand" href="home.jsp">OnlineKart</a> <a
 			class="btn btn-navbar" data-toggle="collapse"
 			data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 			class="icon-bar"></span> <span class="icon-bar"></span>
@@ -61,8 +62,14 @@
 						class="btn btn-default btn-sm"><i
 							class="icon-shopping-cart icon-red"></i> <c:set var="cartItems"
 								scope="session" value="${cart.numberOfItems}" /> <span
-							class="headerCartItemsCount">${cartItems}</span> <span
-							class="headerCartItemsCountWord"><c:out
+							class="headerCartItemsCount"> <c:choose>
+									<c:when test="${empty cartItems}">0
+							</c:when>
+									<c:otherwise>
+										<c:out value="${cartItems}" />
+									</c:otherwise>
+								</c:choose>
+						</span> <span class="headerCartItemsCountWord"><c:out
 									value="${cartItems==1?'item':'items'}" /></span> <b class="caret"></b></span></a>
 					<ul class="dropdown-menu">
 						<li><a tabindex="-1" href="/">View Cart</a></li>
@@ -90,8 +97,7 @@
 				</c:url> <a href="${url}">${productCategory}</a> <span class="divider">/</span></li>
 			<li class="active"><c:url var="url" value="/category">
 					<c:param name="subcat" value="${productSubCategory}" />
-				</c:url><a href="${url}">${productSubCategory}</a> <span
-				class="divider">/</span></li>
+				</c:url><a href="${url}">${productSubCategory}</a> <span class="divider">/</span></li>
 			<li class="active">${product.productName}</li>
 		</ul>
 		<div class="row">
@@ -113,8 +119,17 @@
 				</div>
 
 				<div class="modal-body">
-					<p>Product - ${product.productName} is added to your Shopping
-						Cart</p>
+					<c:choose>
+						<c:when test="${f:checkProductInCart(pageContext)}">
+							<p class="text-warning">Product - ${product.productName} is
+								already added to your Shopping Cart.</p>
+						</c:when>
+						<c:otherwise>
+							<p class="text-success">Product - ${product.productName} will
+								be added to your Shopping Cart.</p>
+						</c:otherwise>
+					</c:choose>
+
 					<hr />
 					<div>
 						<table class="table table-condensed">
@@ -137,8 +152,17 @@
 
 					<div class="modal-footer">
 						<form method="post" action="addProducts" class="addCartForm">
-							<button class="btn btn-primary pull-left" id="addtocart">Add
-								to Cart</button>
+							<c:choose>
+								<c:when test="${f:checkProductInCart(pageContext)}">
+									<button class="btn btn-primary pull-left" id="disabledbutton"
+										onload="disableButton">In Cart!</button>
+								</c:when>
+								<c:otherwise>
+									<button class="btn btn-primary pull-left" id="addtocart">Add
+										to Cart</button>
+								</c:otherwise>
+							</c:choose>
+
 							<a href="#" class="btn" data-dismiss="modal">Continue
 								Shopping</a> <a id="yesbutton" href="#" class="btn btn-primary">Proceed
 								to Checkout</a>
@@ -266,6 +290,19 @@
 				});
 			});
 
+		});
+
+		// Disables a button
+		$(function disableButton() {
+			jQuery.fn.extend({
+				disable : function(state) {
+					return this.each(function() {
+						this.disabled = state;
+					});
+				}
+			});
+
+			$('#disabledbutton').disable(true);
 		});
 	</script>
 </body>

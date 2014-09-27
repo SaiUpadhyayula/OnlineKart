@@ -11,12 +11,22 @@
 <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
 <script src="bootstrap/scripts/jquery-1.7.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
+<style>
+#cartitem {
+	display: inline;
+}
+
+#welcome {
+	display: inline;
+	height: 20px;
+}
+</style>
 </head>
 <body>
 	<!--Header-->
 	<nav class="navbar navbar-inverse" role="navigation">
 	<div class="navbar-inner">
-		<a class="brand" href="/">OnlineKart</a> <a class="btn btn-navbar"
+		<a class="brand" href="home.jsp">OnlineKart</a> <a class="btn btn-navbar"
 			data-toggle="collapse" data-target=".nav-collapse"> <span
 			class="icon-bar"></span> <span class="icon-bar"></span> <span
 			class="icon-bar"></span>
@@ -25,23 +35,51 @@
 		<div class="nav-collapse collapse">
 			<ul class="nav">
 				<c:forEach var="categories" items="${categories}">
-					<li class="dropdown">
-					<a class="dropdown-toggle"	data-toggle="dropdown" href="#">
-						 <c:out	value="${categories.key}" /></b>
-					</a> 
-					
-							<ul class="dropdown-menu">
-					<c:forEach var="subcategories" items="${categories.value}">
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#"> <c:out
+								value="${categories.key}" /></b>
+					</a>
+
+						<ul class="dropdown-menu">
+							<c:forEach var="subcategories" items="${categories.value}">
 								<c:url var="url" value="/category">
-										<c:param name="subcat" value="${subcategories}" />
-											<c:param name="categ" value="${categories.key}" />
-									</c:url>
-									<li><a tabindex="-1" href="${url}"><c:out value="${subcategories}" /></a>
-									</li>
-						</c:forEach>
-							</ul>
-					</li>
+									<c:param name="subcat" value="${subcategories}" />
+									<c:param name="categ" value="${categories.key}" />
+								</c:url>
+								<li><a tabindex="-1" href="${url}"><c:out
+											value="${subcategories}" /></a></li>
+							</c:forEach>
+						</ul></li>
 				</c:forEach>
+			</ul>
+			<ul class="nav pull-right">
+				<li class="dropdown"><a id="cartitem" class="dropdown-toggle"
+					data-toggle="dropdown" href="#"><span id="itemcount"
+						class="btn btn-default btn-sm"><i
+							class="icon-shopping-cart icon-red"></i> <c:set var="cartItems"
+								scope="session" value="${cart.numberOfItems}" /> <span
+							class="headerCartItemsCount"> <c:choose>
+									<c:when test="${empty cartItems}">0
+							</c:when>
+									<c:otherwise>
+										<c:out value="${cartItems}" />
+									</c:otherwise>
+								</c:choose>
+						</span> <span class="headerCartItemsCountWord"><c:out
+									value="${cartItems==1?'item':'items'}" /></span> <b class="caret"></b></span></a>
+					<ul class="dropdown-menu">
+						<li><a tabindex="-1" href="/">View Cart</a></li>
+						<li><a tabindex="-1" href="/">Checkout Cart</a></li>
+						<li><a tabindex="-1" href="/">Clear Cart</a></li>
+					</ul></li>
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"><span id="welcome"
+						class="btn btn-default btn-sm">User Name<b class="caret"></b></span></a>
+					<ul class="dropdown-menu">
+						<li><a tabindex="-1" href="/">Account</a></li>
+						<li><a tabindex="-1" href="/">Orders</a></li>
+						<li><a tabindex="-1" href="/">Sign out</a></li>
+					</ul></li>
 			</ul>
 		</div>
 	</div>

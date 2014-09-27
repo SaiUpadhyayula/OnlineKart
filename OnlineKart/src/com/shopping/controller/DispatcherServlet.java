@@ -36,12 +36,16 @@ public class DispatcherServlet extends HttpServlet {
 			ProductService productService = new ProductService();
 			String subCategory = request.getParameter("subcat");
 			String catName = request.getParameter("categ");
+			// If the user requested only products
+			// of specific category
 			if (catName != null) {
 				List<Product> productsCategoryList = productService
 						.getProductByCategory(catName);
 				request.setAttribute("productByCategory", productsCategoryList);
 			}
 
+			// If the user requested only products
+			// of specific subcategory
 			if (subCategory != null) {
 				List<Product> categoryProducts = productService
 						.getProductBySubCategory(subCategory);
@@ -124,8 +128,8 @@ public class DispatcherServlet extends HttpServlet {
 
 				cart.add(productID, p);
 				response.sendRedirect("product.jsp");
-			}
 
+			}
 		}
 		// If user request to purchase the products
 		else if (userPath.equals("/purchase")) {
