@@ -59,8 +59,11 @@
 				<li class="dropdown"><a id="cartitem" class="dropdown-toggle"
 					data-toggle="dropdown" href="#"><span id="itemcount"
 						class="btn btn-default btn-sm"><i
-							class="icon-shopping-cart icon-red"></i>0 Items in Cart <b
-							class="caret"></b></span></a>
+							class="icon-shopping-cart icon-red"></i> <c:set var="cartItems"
+								scope="session" value="${cart.numberOfItems}" /> <span
+							class="headerCartItemsCount">${cartItems}</span> <span
+							class="headerCartItemsCountWord"><c:out
+									value="${cartItems==1?'item':'items'}" /></span> <b class="caret"></b></span></a>
 					<ul class="dropdown-menu">
 						<li><a tabindex="-1" href="/">View Cart</a></li>
 						<li><a tabindex="-1" href="/">Checkout Cart</a></li>
@@ -131,7 +134,7 @@
 					</div>
 
 					<div class="modal-footer">
-						<form method="post" class="addCartForm">
+						<form method="post" action="addProducts" class="addCartForm">
 							<button class="btn btn-primary pull-left" id="addtocart">Add
 								to Cart</button>
 							<a href="#" class="btn" data-dismiss="modal">Continue
@@ -182,8 +185,44 @@
 
 	<script>
 		var productPrice = "${product.productPrice}";
-		var sessionVariable = "${numberOfItems}";
 		var productId = "${productID}";
+
+		function updateHeaderCartItemsCount(newCount) {
+			$('.headerCartItemsCount').html(newCount);
+			$('.headerCartItemsCountWord').html(
+					(newCount == 1) ? ' item' : ' items');
+		}
+
+		function ajax(options, callback) {
+			var defaults = {
+				success : function(data) {
+					if (!redirectIfNecessary($(data))) {
+						var extraData = getExtraData($(data));
+						callback(data, extraData);
+					}
+				}
+			};
+
+			$.extend(options, defaults);
+			$.ajax(options);
+		}
+
+		function serializeObject($object) {
+			var o = {};
+			var a = $object.serializeArray();
+			$.each(a, function() {
+				if (o[this.name] !== undefined) {
+					if (!o[this.name].push) {
+						o[this.name] = [ o[this.name] ];
+					}
+					o[this.name].push(this.value || '');
+				} else {
+					o[this.name] = this.value || '';
+				}
+			});
+			return o;
+		}
+
 		// This script is used to update the price
 		// based on the provided quantity
 		$(function() {
@@ -208,34 +247,22 @@
 				}
 			});
 		});
-
-		// TODO
+		var form = $('addCartForm');
+		var itemRequest = serializeObject(form);
+		var cartItems = "${cart.numberOfItems}";
 		$(function() {
 			$('#addtocart').click(function(event) {
 				$('#themodal').modal('toggle');
-				alert(sessionVariable);
-				$.ajax({
-					method : 'POST',
-					url : 'addProducts',
-					data : productId,
-					success : function(status, xhr) {
-						if (sessionVariable == '1') {
-							var cartData = sessionVariable + " Item in Cart";
-						} else {
-							var cartData = sessionVariable + " Items in Cart";
-						}
-						$('#itemcount').click(function() {
-							var icon = $(this).children("i");
-							$(this).text(cartData);
-						});
 
-					},
-					error : function(xhr, status, error) {
-						alert('Error Occured: ' + status);
-					}
+				$ajax({
+					url : $form.attr('action'),
+					type : "POST",
+				}, function(data) {
+					updateHeaderCartItemsCount(cartItems);
+					alert(cartItems);
 				});
-
 			});
+
 		});
 	</script>
 </body>

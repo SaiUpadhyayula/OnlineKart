@@ -11,12 +11,12 @@ import com.shopping.beans.Product;
 public class ShoppingCart {
 
 	private HashMap<Integer, ShoppingCartItem> itemsMap = null;
-	private int numberOfItems;
+	private int numberOfItems = 0;
 	private final static Logger LOGGER = Logger.getLogger(ShoppingCart.class
 			.getName());
 
 	public ShoppingCart() {
-		itemsMap = new HashMap<Integer, ShoppingCartItem>(1);
+		itemsMap = new HashMap<Integer, ShoppingCartItem>();
 	}
 
 	// Adds items to the shopping cart
@@ -66,6 +66,7 @@ public class ShoppingCart {
 
 	// Get Number of Items in the Shopping Cart
 	public synchronized int getNumberOfItems() {
+		numberOfItems = 0;
 		Iterator<ShoppingCartItem> scItemIterator = getAllItems().iterator();
 
 		while (scItemIterator.hasNext()) {

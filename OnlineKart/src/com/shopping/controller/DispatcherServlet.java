@@ -1,6 +1,7 @@
 package com.shopping.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -119,10 +120,7 @@ public class DispatcherServlet extends HttpServlet {
 				Product p = service.getProductDetails(productID);
 
 				cart.add(productID, p);
-				int numberOfItems = cart.getNumberOfItems();
-				if (numberOfItems == 0) {
-					hs.setAttribute("numberOfItems", numberOfItems);
-				}
+				response.sendRedirect("product.jsp");
 			}
 
 		}
