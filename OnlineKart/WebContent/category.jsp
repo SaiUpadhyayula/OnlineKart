@@ -74,14 +74,29 @@
 		</ul>
 		<div class="row">
 			<div class="span12">
-				<c:forEach var="products" items="${categoryProducts}">
-					<c:url var="url" value="/product">
-						<c:param name="productId" value="${products.productId}" />
-					</c:url>
-					<div class="span3">
-						<img src="http://placehold.it/200x200" /> <a href="${url}">${products.productName}</a>
-					</div>
-				</c:forEach>
+				<c:choose>
+					<c:when test="${not empty categoryProducts}">
+						<c:forEach var="products" items="${categoryProducts}">
+							<c:url var="url" value="/product">
+								<c:param name="productId" value="${products.productId}" />
+							</c:url>
+							<div class="span3">
+								<img src="http://placehold.it/200x200" /> <a href="${url}">${products.productName}</a>
+							</div>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="products" items="${productsCategoryList}">
+							<c:url var="url" value="/product">
+								<c:param name="productId" value="${products.productId}" />
+							</c:url>
+							<div class="span3">
+								<img src="http://placehold.it/200x200" /> <a href="${url}">${products.productName}</a>
+							</div>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+
 
 			</div>
 		</div>

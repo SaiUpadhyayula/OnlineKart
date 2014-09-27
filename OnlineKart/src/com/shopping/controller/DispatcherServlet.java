@@ -41,14 +41,17 @@ public class DispatcherServlet extends HttpServlet {
 						.getProductByCategory(catName);
 				request.setAttribute("productByCategory", productsCategoryList);
 			}
-			List<Product> categoryProducts = productService
-					.getProductBySubCategory(subCategory);
-			String categoryName = productService
-					.getCategoryBySubCategory(subCategory);
 
-			getServletContext().setAttribute("categoryProducts",
-					categoryProducts);
-			getServletContext().setAttribute("catName", categoryName);
+			if (subCategory != null) {
+				List<Product> categoryProducts = productService
+						.getProductBySubCategory(subCategory);
+				String categoryName = productService
+						.getCategoryBySubCategory(subCategory);
+				getServletContext().setAttribute("categoryProducts",
+						categoryProducts);
+				getServletContext().setAttribute("catName", categoryName);
+			}
+
 			getServletContext().setAttribute("subCat", subCategory);
 		}
 		// If user requested cart page

@@ -88,7 +88,9 @@
 			<li class="active"><c:url var="url" value="/category">
 					<c:param name="categ" value="${productCategory}" />
 				</c:url> <a href="${url}">${productCategory}</a> <span class="divider">/</span></li>
-			<li class="active"><a href="${url}">${productSubCategory}</a> <span
+			<li class="active"><c:url var="url" value="/category">
+					<c:param name="subcat" value="${productSubCategory}" />
+				</c:url><a href="${url}">${productSubCategory}</a> <span
 				class="divider">/</span></li>
 			<li class="active">${product.productName}</li>
 		</ul>
@@ -254,12 +256,13 @@
 			$('#addtocart').click(function(event) {
 				$('#themodal').modal('toggle');
 
-				$ajax({
+				$.ajax({
 					url : $form.attr('action'),
 					type : "POST",
-				}, function(data) {
-					updateHeaderCartItemsCount(cartItems);
-					alert(cartItems);
+					success : function(data) {
+						updateHeaderCartItemsCount(cartItems);
+						alert(cartItems);
+					}
 				});
 			});
 
