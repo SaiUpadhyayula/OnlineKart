@@ -16,6 +16,10 @@
 <script src="bootstrap/scripts/jquery-1.7.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
 <style>
+body {
+	background-color: #ddddcc;
+}
+
 #cartitem {
 	display: inline;
 }
@@ -28,7 +32,7 @@
 </head>
 <body>
 	<!--Header-->
-	<nav class="navbar navbar-inverse" role="navigation">
+	<header> <nav class="navbar navbar-inverse" role="navigation">
 	<div class="navbar-inner">
 		<a class="brand" href="home.jsp">OnlineKart</a> <a
 			class="btn btn-navbar" data-toggle="collapse"
@@ -72,7 +76,7 @@
 						</span> <span class="headerCartItemsCountWord"><c:out
 									value="${cartItems==1?'item':'items'}" /></span> <b class="caret"></b></span></a>
 					<ul class="dropdown-menu">
-						<li><a tabindex="-1" href="/">View Cart</a></li>
+						<li><a tabindex="-1" href="cart">View Cart</a></li>
 						<li><a tabindex="-1" href="/">Checkout Cart</a></li>
 						<li><a tabindex="-1" href="/">Clear Cart</a></li>
 					</ul></li>
@@ -87,9 +91,10 @@
 			</ul>
 		</div>
 	</div>
-	</nav>
+	</nav> </header>
 
 	<!-- Body -->
+	<section>
 	<div class="container">
 		<ul class="breadcrumb">
 			<li class="active"><c:url var="url" value="/category">
@@ -164,8 +169,8 @@
 							</c:choose>
 
 							<a href="#" class="btn" data-dismiss="modal">Continue
-								Shopping</a> <a id="yesbutton" href="#" class="btn btn-primary">Proceed
-								to Checkout</a>
+								Shopping</a> <a id="yesbutton" href="#" class="btn btn-primary">Place
+								Order</a>
 						</form>
 					</div>
 				</div>
@@ -208,7 +213,8 @@
 			</div>
 		</div>
 	</div>
-
+	</section>
+	<footer> </footer>
 	<script>
 		var productPrice = "${product.productPrice}";
 		var productId = "${productID}";

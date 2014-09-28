@@ -49,7 +49,7 @@ public class ShoppingCart {
 	}
 
 	// Get All the Items in the Shopping Cart
-	public synchronized List<ShoppingCartItem> getAllItems() {
+	public synchronized List<ShoppingCartItem> getItems() {
 		List<ShoppingCartItem> listOfItems = new ArrayList<ShoppingCartItem>();
 		listOfItems.addAll(this.itemsMap.values());
 		return listOfItems;
@@ -58,7 +58,7 @@ public class ShoppingCart {
 	// Get Number of Items in the Shopping Cart
 	public synchronized int getNumberOfItems() {
 		numberOfItems = 0;
-		Iterator<ShoppingCartItem> scItemIterator = getAllItems().iterator();
+		Iterator<ShoppingCartItem> scItemIterator = getItems().iterator();
 
 		while (scItemIterator.hasNext()) {
 			ShoppingCartItem items = scItemIterator.next();
@@ -72,7 +72,7 @@ public class ShoppingCart {
 	public synchronized double getTotal() {
 
 		double amount = 0.0;
-		Iterator<ShoppingCartItem> anotherSCItemIterator = getAllItems()
+		Iterator<ShoppingCartItem> anotherSCItemIterator = getItems()
 				.iterator();
 		while (anotherSCItemIterator.hasNext()) {
 			ShoppingCartItem anotherSCItem = anotherSCItemIterator.next();
@@ -87,8 +87,8 @@ public class ShoppingCart {
 	// is already present in the cart
 	public static boolean checkProductInCart(PageContext pageContext) {
 		int productID = (int) pageContext.findAttribute("productID");
-		if(itemsMap==null)
-		itemsMap = new HashMap<Integer, ShoppingCartItem>();
+		if (itemsMap == null)
+			itemsMap = new HashMap<Integer, ShoppingCartItem>();
 		if (itemsMap.containsKey(productID)) {
 			LOGGER.info("Product already exists in the cart");
 			return true;

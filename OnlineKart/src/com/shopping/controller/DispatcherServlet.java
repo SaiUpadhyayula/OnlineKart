@@ -1,7 +1,7 @@
 package com.shopping.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.shopping.beans.Product;
 import com.shopping.cart.ShoppingCart;
+import com.shopping.cart.ShoppingCartItem;
 import com.shopping.service.ProductService;
 
 /**
@@ -24,7 +25,9 @@ import com.shopping.service.ProductService;
  */
 public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private HttpSession hs;
 
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
@@ -60,7 +63,15 @@ public class DispatcherServlet extends HttpServlet {
 		}
 		// If user requested cart page
 		else if (userPath.equals("/cart")) {
-			// TODO : Add code for cart page
+			// Retrieve all the items available in the cart
+			hs = request.getSession();
+			ShoppingCart cart = (ShoppingCart) hs.getAttribute("cart");
+
+			if (cart != null) {
+				List<ShoppingCartItem> scList = cart.getItems();
+				request.setAttribute("scProductList", scList);
+			}
+
 		}
 		// If user requested checkout page
 		else if (userPath.equals("/checkout")) {

@@ -1,8 +1,10 @@
 package com.shopping.cart;
 
+import java.io.Serializable;
+
 import com.shopping.beans.Product;
 
-public class ShoppingCartItem {
+public class ShoppingCartItem implements Serializable {
 
 	private Product product;
 	private int quantity;
