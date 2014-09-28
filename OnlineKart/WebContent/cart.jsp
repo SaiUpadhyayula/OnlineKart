@@ -70,7 +70,7 @@ body {
 }
 
 #cart_items .cart_table .cart_description h4 {
-	padding-left: 30px;
+	padding-left: 50px;
 	margin-bottom: 0
 }
 
@@ -81,7 +81,7 @@ body {
 }
 
 #cart_items .cart_table .cart_description p {
-	padding-left: 30px;
+	padding-left: 50px;
 	color: #696763
 }
 
@@ -101,8 +101,7 @@ body {
 }
 
 #cart_items .cart_table .checkoutbutton {
-	padding-right: 30px;
-	position: absolute;
+	padding-right: 70px;
 }
 
 .cart_product {
@@ -227,7 +226,7 @@ body {
 		</div>
 		<div class="table-responsive cart_table">
 			<c:choose>
-				<c:when test="${sessionScope.cart.numberOfItems == 0 }">
+				<c:when test="${cart.numberOfItems == 0 ? true:false}">
 					<table class="table table-condensed">
 						<thead>
 							<tr class="cart_menu">
@@ -248,7 +247,7 @@ body {
 					</table>
 				</c:when>
 				<c:otherwise>
-					<table class="table table-condensed">
+					<table id="product_table" class="table table-condensed">
 						<thead>
 							<tr class="cart_menu">
 								<td class="image">Product</td>
@@ -279,10 +278,12 @@ body {
 									</td>
 									<td class="cart_quantity">
 										<div class="form-horizontal">
-											<a href="" role="button" class="btn btn-primary">+</a> <input
-												class="input-mini" type="text" placeholder="1"> <a
-												href="" role="button" class="btn btn-primary">-</a>
-											<button class="btn save_btn">Update</button>
+											<a href="" id="increment" role="button"
+												class="btn btn-primary" data-max="10">+</a> <input
+												class="input-mini" name="mini" type="text" value="1">
+											<a href="" role="button" id="decrement"
+												class="btn btn-primary" data-min="0">-</a> <input
+												type="submit" class="btn" id="save_btn" value="Update" />
 										</div>
 									</td>
 									<td class="cart_total">
@@ -299,7 +300,9 @@ body {
 								<td>&nbsp;</td>
 								<td><button id="checkoutbutton" class="btn btn-primary">Proceed
 										to Checkout</button></td>
-								<td><p id="subtotal_cart" class="lead">SubTotal:</p></td>
+								<td><button id="continueshopping" id="continuebutton"
+										class="btn btn-primary pull-left">Continue Shopping</button>
+									<p id="subtotal_cart" class="lead">SubTotal:</p></td>
 								<td class="cart_sub_total">
 									<p class="lead">
 										Rs.
@@ -314,5 +317,32 @@ body {
 		</div>
 	</div>
 	</section>
+	<script>
+	$('#bookDecrement').click(function() {
+
+	    // Get the current row
+	    var row = $(this).closest('tr');
+
+	    // Determine if we're adding or removing
+	    var increment = 1;
+
+	    // Get the current quantity
+	    var quantity = parseInt(row.find('.input-mini').val(), 10);
+	    // Adjust the quantity
+	    quantity += increment;
+	    // Quantity must be at least 0
+	    quantity = quantity < 0 ? 0 : quantity;
+
+	    // Get the price
+	    var price = parseFloat(row.find('.bookPrice').val());
+
+	    // Adjust the total
+	    row.find('.bookTotal').val(quantity * price);
+
+	    // Return false to prevent the link from redirecting to '#'
+	    return false;
+	});	
+	</script>
+
 </body>
 </html>
