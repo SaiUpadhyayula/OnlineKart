@@ -278,17 +278,15 @@ body {
 									</td>
 									<td class="cart_quantity">
 										<div class="form-horizontal">
-											<a href="" id="increment" role="button"
-												class="btn btn-primary" data-max="10">+</a> <input
-												class="input-mini" name="mini" type="text" value="1">
-											<a href="" role="button" id="decrement"
-												class="btn btn-primary" data-min="0">-</a> <input
-												type="submit" class="btn" id="save_btn" value="Update" />
+											<button class="increment btn btn-primary">+</button>
+											<input class="input-mini" name="mini" type="text" value="1">
+											<button class="decrement btn btn-primary">-</button>
+											<button class="update btn btn-primary">Update</button>
 										</div>
 									</td>
 									<td class="cart_total">
-										<p class="lead">
-											Rs.
+										<p class="product_tot lead">
+											Rs:
 											<c:out value="${products.productPrice}" />
 										</p>
 									</td>
@@ -302,7 +300,7 @@ body {
 										to Checkout</button></td>
 								<td><button id="continueshopping" id="continuebutton"
 										class="btn btn-primary pull-left">Continue Shopping</button>
-									<p id="subtotal_cart" class="lead">SubTotal:</p></td>
+									<p id="subtotal_cart" class="lead">Total:</p></td>
 								<td class="cart_sub_total">
 									<p class="lead">
 										Rs.
@@ -318,30 +316,45 @@ body {
 	</div>
 	</section>
 	<script>
-	$('#bookDecrement').click(function() {
+		$(document).ready(function() {
+			$(".increment").on('click', function() {
+				var $incdec = $(this).closest("td").find(".input-mini");
+				if ($incdec.val() < 10) {
+					$incdec.val(parseInt($incdec.val()) + 1);
+				}
+			});
 
-	    // Get the current row
-	    var row = $(this).closest('tr');
+			$(".decrement").on('click', function() {
+				var $incdec = $(this).closest("td").find(".input-mini");
+				if ($incdec.val() > 1) {
+					$incdec.val(parseInt($incdec.val()) - 1);
+				}
+			});
+		});
 
-	    // Determine if we're adding or removing
-	    var increment = 1;
+		$('.update').on('click', function() {
+			// Find the active row
+			var $update = $(this).closest('tr');
 
-	    // Get the current quantity
-	    var quantity = parseInt(row.find('.input-mini').val(), 10);
-	    // Adjust the quantity
-	    quantity += increment;
-	    // Quantity must be at least 0
-	    quantity = quantity < 0 ? 0 : quantity;
+			// Find the Product Total Element in the present row
+			var $carttot = $update.find('p.product_tot').text();
 
-	    // Get the price
-	    var price = parseFloat(row.find('.bookPrice').val());
+			// Find the Quantity of the Product
+			var $quantity = $(this).closest('td').find('.input-mini').val();
 
-	    // Adjust the total
-	    row.find('.bookTotal').val(quantity * price);
-
-	    // Return false to prevent the link from redirecting to '#'
-	    return false;
-	});	
+			// Split the text and update the value
+			var $arr = $carttot.split(':');
+			var $prodtot = parseFloat($arr[1]) * $quantity;
+			$update.find('p.product_tot').text("Rs: " + ($prodtot) + ".0");
+			
+			updateTotal();
+		});
+		
+		$(function updateTotal(){
+			$('table#product_table > tbody > tr').each(function(){
+				var $prodprice = $(this).find('p.product_tot').text();
+			});
+		});
 	</script>
 
 </body>
