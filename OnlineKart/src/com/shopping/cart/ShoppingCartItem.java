@@ -52,4 +52,10 @@ public class ShoppingCartItem implements Serializable {
 	 * End of Getters and Setters
 	 */
 
+	public double getTotal() {
+		double amount = 0;
+		amount = (this.getQuantity() * product.getProductPrice());
+		return amount;
+	}
+
 }

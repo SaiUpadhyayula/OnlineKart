@@ -197,7 +197,7 @@ body {
 						</span> <span class="headerCartItemsCountWord"><c:out
 									value="${cartItems==1?'item':'items'}" /></span> <b class="caret"></b></span></a>
 					<ul class="dropdown-menu">
-						<li><a tabindex="-1" href="/">View Cart</a></li>
+						<li><a tabindex="-1" href="cart">View Cart</a></li>
 						<li><a tabindex="-1" href="/">Checkout Cart</a></li>
 						<li><a tabindex="-1" href="/">Clear Cart</a></li>
 					</ul></li>
@@ -258,7 +258,7 @@ body {
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="cart_products" items="${scProductList}">
+							<c:forEach var="cart_products" items="${cart.items}">
 								<c:set var="products" value="${cart_products.product}" />
 								<tr>
 									<td class="cart_product"><a href=""><img alt=""
@@ -278,16 +278,26 @@ body {
 									</td>
 									<td class="cart_quantity">
 										<div class="form-horizontal">
-											<button class="increment btn btn-primary">+</button>
-											<input class="input-mini" name="mini" type="text" value="1">
-											<button class="decrement btn btn-primary">-</button>
-											<button class="update btn btn-primary">Update</button>
+											<form action="update" method="POST">
+												<input type="text" name="productid"
+													value="<c:out value="${products.productId}"/>" /><input
+													type="text" name="quantity" size="2" maxlength="2"
+													class="input-mini"
+													value="<c:out value="${cart_products.quantity}"/>" />
+												<button class="update btn btn-primary">Update</button>
+											</form>
+										</div> <!--  										<div class="form-horizontal">
+												<button class="increment btn btn-primary">+</button>
+												<input class="input-mini" name="mini" type="text" value="1">
+												<button class="decrement btn btn-primary">-</button>
+												<button class="update btn btn-primary">Update</button>
 										</div>
+-->
 									</td>
 									<td class="cart_total">
 										<p class="product_tot lead">
 											Rs:
-											<c:out value="${products.productPrice}" />
+											<c:out value="${cart_products.total}" />
 										</p>
 									</td>
 									<td class="cart_delete"><a class="cart_quantity_delete"
@@ -330,31 +340,56 @@ body {
 					$incdec.val(parseInt($incdec.val()) - 1);
 				}
 			});
-		});
 
-		$('.update').on('click', function() {
-			// Find the active row
-			var $update = $(this).closest('tr');
+			$('.update').on('click', function() {
 
-			// Find the Product Total Element in the present row
-			var $carttot = $update.find('p.product_tot').text();
-
-			// Find the Quantity of the Product
-			var $quantity = $(this).closest('td').find('.input-mini').val();
-
-			// Split the text and update the value
-			var $arr = $carttot.split(':');
-			var $prodtot = parseFloat($arr[1]) * $quantity;
-			$update.find('p.product_tot').text("Rs: " + ($prodtot) + ".0");
-			
-			updateTotal();
-		});
-		
-		$(function updateTotal(){
-			$('table#product_table > tbody > tr').each(function(){
-				var $prodprice = $(this).find('p.product_tot').text();
 			});
 		});
+
+		$(function updateTotal() {
+			var $totprice = 0;
+			$('table#product_table > tbody > tr').each(function() {
+				if (!$(this).hasClass('.cart_sub_total')) {
+					var $prodprice = $(this).find('p.product_tot').text();
+					var $arr = $prodprice.split(':');
+					var $prodtot = parseFloat($arr[1]);
+					console.log($prodtot);
+					$totprice = parseFloat($totprice) + parseFloat($prodtot);
+					console.log($totprice);
+				}
+			});
+			return false;
+		});
+
+		function ajax(options, callback) {
+			var defaults = {
+				success : function(data) {
+					if (!redirectIfNecessary($(data))) {
+						var extraData = getExtraData($(data));
+						callback(data, extraData);
+					}
+				}
+			};
+
+			$.extend(options, defaults);
+			$.ajax(options);
+		}
+
+		function serializeObject($object) {
+			var o = {};
+			var a = $object.serializeArray();
+			$.each(a, function() {
+				if (o[this.name] !== undefined) {
+					if (!o[this.name].push) {
+						o[this.name] = [ o[this.name] ];
+					}
+					o[this.name].push(this.value || '');
+				} else {
+					o[this.name] = this.value || '';
+				}
+			});
+			return o;
+		}
 	</script>
 
 </body>

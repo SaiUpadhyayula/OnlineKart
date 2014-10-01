@@ -28,6 +28,16 @@ public class ShoppingCart {
 		LOGGER.info("Quantity is :" + newItem.getQuantity());
 	}
 
+	// Update items in the shopping cart
+	public synchronized void updateQuantity(int productID, int quantity,
+			Product p) {
+		if (itemsMap.containsKey(productID)) {
+			ShoppingCartItem scItem = (ShoppingCartItem) itemsMap
+					.get(productID);
+			scItem.setQuantity(quantity);
+		}
+	}
+
 	// Remove items from the shopping cart
 	public synchronized void remove(Integer productID) {
 		if (itemsMap.containsKey(productID)) {

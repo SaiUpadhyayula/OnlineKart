@@ -61,6 +61,7 @@ public class ProductService {
 			ps.setInt(1, productId);
 			rs = ps.executeQuery();
 			while (rs.next()) {
+				p.setProductId(productId);
 				p.setProductName(rs.getString(1));
 				p.setProductPrice(rs.getDouble(2));
 				p.setDescription(rs.getString(3));

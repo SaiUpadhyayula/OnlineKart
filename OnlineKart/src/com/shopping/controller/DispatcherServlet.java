@@ -1,7 +1,6 @@
 package com.shopping.controller;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -68,8 +67,9 @@ public class DispatcherServlet extends HttpServlet {
 			ShoppingCart cart = (ShoppingCart) hs.getAttribute("cart");
 
 			if (cart != null) {
-				List<ShoppingCartItem> scList = cart.getItems();
-				request.setAttribute("scProductList", scList);
+				RequestDispatcher rd = getServletContext()
+						.getRequestDispatcher(getURL);
+				rd.forward(request, response);
 			}
 
 		}
@@ -91,9 +91,10 @@ public class DispatcherServlet extends HttpServlet {
 			ProductService productService = new ProductService();
 			Product product = (Product) productService
 					.getProductDetails(productId);
-			getServletContext().setAttribute("product", product);
-			getServletContext().setAttribute("productID", productId);
-			// Set Product Category and SubCategory in the Request Attribute
+			hs = request.getSession();
+			hs.setAttribute("product", product);
+			hs.setAttribute("productID", productId);
+			// Set Product Category and SubCategory in the Context Attribute
 			getServletContext().setAttribute("productCategory",
 					product.getCategory());
 			getServletContext().setAttribute("productSubCategory",
@@ -127,8 +128,8 @@ public class DispatcherServlet extends HttpServlet {
 				hs.setAttribute("cart", cart);
 			}
 
-			int prodID = Integer.parseInt((getServletContext().getAttribute(
-					"productID").toString()));
+			int prodID = Integer.parseInt((hs.getAttribute("productID")
+					.toString()));
 			Integer productID = new Integer(prodID);
 			// Check whether the product id is not null
 			// If not null then add the product to the cart
@@ -141,6 +142,24 @@ public class DispatcherServlet extends HttpServlet {
 				response.sendRedirect("product.jsp");
 
 			}
+		}
+
+		// If user request to update the products
+		else if (userPath.equals("/update")) {
+			String prod_id = request.getParameter("productid");
+			int productid = Integer.parseInt(prod_id);
+			int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+			ProductService productService = new ProductService();
+			Product product = (Product) productService
+					.getProductDetails(productid);
+
+			ShoppingCart cart = (ShoppingCart) hs.getAttribute("cart");
+
+			if (cart != null) {
+				cart.updateQuantity(productid, quantity, product);
+			}
+			response.sendRedirect("cart.jsp");
 		}
 		// If user request to purchase the products
 		else if (userPath.equals("/purchase")) {
