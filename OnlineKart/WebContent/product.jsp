@@ -17,7 +17,7 @@
 <script src="bootstrap/js/bootstrap.js"></script>
 <style>
 body {
-	background-color: #ddddcc;
+	background-color: white;
 }
 
 #cartitem {

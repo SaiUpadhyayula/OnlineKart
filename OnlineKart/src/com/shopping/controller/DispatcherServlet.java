@@ -75,7 +75,7 @@ public class DispatcherServlet extends HttpServlet {
 		}
 		// If user requested checkout page
 		else if (userPath.equals("/checkout")) {
-			// TODO : Add code for checkout page
+			
 		}
 		// If user request home page
 		else if (userPath.equals("/home")) {

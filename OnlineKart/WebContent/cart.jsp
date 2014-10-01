@@ -19,7 +19,7 @@
 <script src="bootstrap/js/bootstrap.js"></script>
 <style>
 body {
-	background-color: #ddddcc;
+	background-color: white;
 }
 
 .input-mini {
@@ -226,23 +226,15 @@ body {
 		</div>
 		<div class="table-responsive cart_table">
 			<c:choose>
-				<c:when test="${cart.numberOfItems == 0 ? true:false}">
+				<c:when test="${empty cart}">
 					<table class="table table-condensed">
-						<thead>
-							<tr class="cart_menu">
-								<td class="image">Product</td>
-								<td class="description"></td>
-								<td class="quantity">Quantity</td>
-								<td class="price">Price</td>
-								<td></td>
-							</tr>
-						</thead>
 						<tbody>
-							<tr></tr>
-							<tr></tr>
-							<p>The Shopping Cart is Empty</p>
-							<tr></tr>
-							<tr></tr>
+							<tr>
+								<div class="hero-unit">
+									<h3>The Shopping Cart is Empty</h3>
+									<a href="home.jsp" class="btn btn-primary btn-large">Continue Shopping</a>
+								</div>
+							</tr>
 						</tbody>
 					</table>
 				</c:when>
