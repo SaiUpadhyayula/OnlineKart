@@ -26,10 +26,11 @@
 	<!--Header-->
 	<nav class="navbar navbar-inverse" role="navigation">
 	<div class="navbar-inner">
-		<a class="brand" href="home.jsp">OnlineKart</a> <a class="btn btn-navbar"
-			data-toggle="collapse" data-target=".nav-collapse"> <span
-			class="icon-bar"></span> <span class="icon-bar"></span> <span
-			class="icon-bar"></span>
+		<c:url var="home" value="/home" />
+		<a class="brand" href="${home}">OnlineKart</a> <a
+			class="btn btn-navbar" data-toggle="collapse"
+			data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+			class="icon-bar"></span> <span class="icon-bar"></span>
 		</a>
 
 		<div class="nav-collapse collapse">
@@ -68,9 +69,9 @@
 						</span> <span class="headerCartItemsCountWord"><c:out
 									value="${cartItems==1?'item':'items'}" /></span> <b class="caret"></b></span></a>
 					<ul class="dropdown-menu">
-						<li><a tabindex="-1" href="/">View Cart</a></li>
-						<li><a tabindex="-1" href="/">Checkout Cart</a></li>
-						<li><a tabindex="-1" href="/">Clear Cart</a></li>
+						<c:url var="cart" value="/cart"/>
+						<li><a tabindex="-1" href="${cart}">View Cart</a></li>
+						<li><a tabindex="-1" href="checkout_unreg.jsp">Checkout Cart</a></li>
 					</ul></li>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"><span id="welcome"

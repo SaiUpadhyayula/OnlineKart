@@ -298,7 +298,7 @@ body {
 							</c:forEach>
 							<tr>
 								<td>&nbsp;</td>
-								<td><button id="checkoutbutton" class="btn btn-primary">Proceed
+								<td><a role="button" href="checkout_unreg.jsp"id="checkoutbutton" class="btn btn-primary">Proceed
 										to Checkout</button></td>
 								<td><button id="continueshopping" id="continuebutton"
 										class="btn btn-primary pull-left">Continue Shopping</button>

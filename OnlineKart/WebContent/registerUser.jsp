@@ -78,33 +78,6 @@
 					</div>
 				</div>
 				<div class="span1">&nbsp;</div>
-				<div class="span5">
-					<div class="well">
-						<h5>ALREADY REGISTERED ?</h5>
-						<form>
-							<div class="control-group">
-								<label class="control-label" for="inputEmail">Email</label>
-								<div class="controls">
-									<input class="span3" type="text" id="inputEmail"
-										placeholder="E-mail Address">
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label" for="inputPassword">Password</label>
-								<div class="controls">
-									<input type="password" class="span3" id="inputPassword"
-										placeholder="Password">
-								</div>
-							</div>
-							<div class="control-group">
-								<div class="controls">
-									<button type="submit" class="btn btn-primary">Sign in</button>
-									<a href="forgetpass.html">Forget password?</a>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
 			</div>
 		</div>
 		<hr class="soft" />
