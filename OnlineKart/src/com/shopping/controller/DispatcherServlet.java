@@ -163,7 +163,7 @@ public class DispatcherServlet extends HttpServlet {
 		}
 		// If user request to purchase the products
 		else if (userPath.equals("/purchase")) {
-			// TODO: Add code to purchase products
+			
 		}
 
 	}

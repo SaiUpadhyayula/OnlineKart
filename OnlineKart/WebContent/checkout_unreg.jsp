@@ -155,7 +155,7 @@
 									<c:out value="${cart_products.total}" />
 								</p>
 							</td>
-							<td class="cart_delete"><a role="button"
+							<td class="cart_delete"><a role="button" href="/cart"
 								class="btn btn-default" href="">Edit</a></td>
 						</tr>
 					</c:forEach>
@@ -166,7 +166,12 @@
 								<table class="table table-condensed total-result">
 									<tr>
 										<td>Cart Sub Total</td>
-										<td>$59</td>
+										<td>
+											<p>
+												Rs.
+												<c:out value="${cart.total}" />
+											</p>
+										</td>
 									</tr>
 									<tr class="shipping-cost">
 										<td>Shipping Cost</td>
@@ -174,7 +179,12 @@
 									</tr>
 									<tr>
 										<td>Total</td>
-										<td><span>$61</span></td>
+										<td>
+											<p>
+												Rs.
+												<c:out value="${cart.total}" />
+											</p>
+										</td>
 									</tr>
 								</table>
 							</div>
@@ -184,21 +194,6 @@
 			</table>
 		</div>
 		<hr class="soft" />
-		<div class="paymentinfo">
-			<p class="lead">Payment Information</p>
-			<div class="span6">
-				<div class="well">
-					<ul id="payment-methods">
-						<li><img src="images/mastercard.png" alt="Master Card"></li>
-						<li><img src="images/visa.png" alt="Visa Express"></li>
-						<li><img src="images/paypal.png" alt="Paypal"></li>
-						<li><img src="images/AEx.png" alt="American Express"></li>
-						<li><img src="images/discover.png" alt="Discover"></li>
-					</ul>
-					<form action=""></form>
-				</div>
-			</div>
-		</div>
 	</div>
 	</section>
 </body>
