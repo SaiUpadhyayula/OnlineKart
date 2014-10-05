@@ -58,16 +58,20 @@
 				<div class="span5">
 					<div class="well">
 						<h5>CREATE YOUR ACCOUNT</h5>
-						</br>
-						<p>Enter you e-mail address to create an account.</p>
-						</br>
-						<form action="registerUser.jsp" method="post">
+						<form action="register" method="post">
 							<div class="control-group">
 								<label class="control-label" for="inputEmail">E-mail
 									Address</label>
 								<div class="controls">
-									<input class="span3" type="text" id="inputEmail"
+									<input class="span3" type="text" name="inputEmail" id="inputEmail"
 										placeholder="Enter you email" />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="inputEmail">Password</label>
+								<div class="controls">
+									<input class="span3" type="password" name="password" id="password"
+										placeholder="Password" />
 								</div>
 							</div>
 							<div class="controls">
@@ -81,7 +85,7 @@
 				<div class="span5">
 					<div class="well">
 						<h5>ALREADY REGISTERED ?</h5>
-						<form>
+						<form action="/login" method="post">
 							<div class="control-group">
 								<label class="control-label" for="inputEmail">Email</label>
 								<div class="controls">

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.shopping.beans.Product;
 import com.shopping.cart.ShoppingCart;
-import com.shopping.cart.ShoppingCartItem;
+import com.shopping.service.CustomerService;
 import com.shopping.service.ProductService;
 
 /**
@@ -75,7 +75,7 @@ public class DispatcherServlet extends HttpServlet {
 		}
 		// If user requested checkout page
 		else if (userPath.equals("/checkout")) {
-			
+
 		}
 		// If user request home page
 		else if (userPath.equals("/home")) {
@@ -163,7 +163,21 @@ public class DispatcherServlet extends HttpServlet {
 		}
 		// If user request to purchase the products
 		else if (userPath.equals("/purchase")) {
-			
+
+		}
+		// If user registers
+		else if (userPath.equals("/register")) {
+			String email = request.getParameter("inputEmail");
+			String password = request.getParameter("password");
+
+			CustomerService cs = new CustomerService();
+			boolean flag = cs.registerCustomer(email, password);
+
+			if (flag) {
+				response.sendRedirect("login.jsp?regStatus=Success");
+			} else {
+				response.sendRedirect("checkout_unreg.jsp?regStatus=Fail");
+			}
 		}
 
 	}

@@ -45,7 +45,11 @@
 	<servlet-mapping>
 		<servlet-name>DispatcherServlet</servlet-name>
 		<url-pattern>/update</url-pattern>
-	</servlet-mapping>	
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<url-pattern>/register</url-pattern>
+	</servlet-mapping>
 	<filter>
 		<display-name>ProductConfigurationFilter</display-name>
 		<filter-name>ProductConfigurationFilter</filter-name>

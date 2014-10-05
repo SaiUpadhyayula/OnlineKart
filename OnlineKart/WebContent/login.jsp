@@ -52,33 +52,40 @@
 			</ul>
 		</div>
 		<div class="loginsection">
-			<h3>Please Login to complete the transaction.</h3>
 			<hr class="soft" />
-			<div class="row">
-				<div class="span5">
-					<div class="well">
-						<h5>CREATE YOUR ACCOUNT</h5>
-						</br>
-						<p>Enter you e-mail address to create an account.</p>
-						</br>
-						<form action="registerUser.jsp" method="post">
-							<div class="control-group">
-								<label class="control-label" for="inputEmail">E-mail
-									Address</label>
-								<div class="controls">
-									<input class="span3" type="text" id="inputEmail"
-										placeholder="Enter you email" />
+			<h3>Please Login to complete the transaction.</h3>
+			<c:if test="${param.regStatus == 'Success'}">
+				<div class="row">
+					<div class="span1">&nbsp;</div>
+					<div class="span5">
+						<div class="well">
+							<p class="info">Registration Successful.</p>
+							<form action="/login" method="post">
+								<div class="control-group">
+									<label class="control-label" for="inputEmail">Email</label>
+									<div class="controls">
+										<input class="span3" type="text" id="inputEmail"
+											placeholder="E-mail Address">
+									</div>
 								</div>
-							</div>
-							<div class="controls">
-								<button type="submit" class="btn btn-primary">Create
-									Your Account</button>
-							</div>
-						</form>
+								<div class="control-group">
+									<label class="control-label" for="inputPassword">Password</label>
+									<div class="controls">
+										<input type="password" class="span3" id="inputPassword"
+											placeholder="Password">
+									</div>
+								</div>
+								<div class="control-group">
+									<div class="controls">
+										<button type="submit" class="btn btn-primary">Sign in</button>
+										<a href="forgetpass.html">Forget password?</a>
+									</div>
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
-				<div class="span1">&nbsp;</div>
-			</div>
+			</c:if>
 		</div>
 		<hr class="soft" />
 		<div class="review-payment">
