@@ -50,6 +50,14 @@
 		<servlet-name>DispatcherServlet</servlet-name>
 		<url-pattern>/register</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<url-pattern>/purchase</url-pattern>
+	</servlet-mapping>
 	<filter>
 		<display-name>ProductConfigurationFilter</display-name>
 		<filter-name>ProductConfigurationFilter</filter-name>

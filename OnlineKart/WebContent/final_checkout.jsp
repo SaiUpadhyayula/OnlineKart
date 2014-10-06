@@ -150,7 +150,7 @@
 						<li><img src="images/discover.png" alt="Discover"></li>
 					</ul>
 					</br>
-					<form action="">
+					<form action="purchase" method="post">
 						<fieldset>
 							<div class="control-group">
 								<label for="cardType">Select your Card</label> <select

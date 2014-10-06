@@ -57,21 +57,24 @@
 			<div class="row">
 				<div class="span5">
 					<div class="well">
+						<c:if test="${param.regStatus=='Fail'}">
+							<p class="warning">Registration Unsuccessful.</p>
+						</c:if>
 						<h5>CREATE YOUR ACCOUNT</h5>
 						<form action="register" method="post">
 							<div class="control-group">
 								<label class="control-label" for="inputEmail">E-mail
 									Address</label>
 								<div class="controls">
-									<input class="span3" type="text" name="inputEmail" id="inputEmail"
-										placeholder="Enter you email" />
+									<input class="span3" type="text" name="inputEmail"
+										id="inputEmail" placeholder="Enter you email" />
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputEmail">Password</label>
 								<div class="controls">
-									<input class="span3" type="password" name="password" id="password"
-										placeholder="Password" />
+									<input class="span3" type="password" name="password"
+										id="password" placeholder="Password" />
 								</div>
 							</div>
 							<div class="controls">

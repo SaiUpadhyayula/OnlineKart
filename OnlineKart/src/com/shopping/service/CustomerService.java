@@ -32,4 +32,12 @@ public class CustomerService {
 		return false;
 	}
 
+	// This method is used to verify if the customer is registered
+	// or not
+	public boolean verifyUser(String email,String passwrod){
+		conn = DBConnection.getConnecton();
+		String sql = "select userid from userdetails where ";
+		return false;
+	}
+
 }

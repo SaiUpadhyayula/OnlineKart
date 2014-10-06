@@ -44,52 +44,12 @@
 	<!-- Section -->
 	<section>
 	<div class="container">
-		<div class="breadcrumbs">
-			<ul class="breadcrumb">
-				<c:url var="home" value="/home" />
-				<li class="active"><a href="home">Home</a> <span
-					class="divider">/</span></li>
-				<li class="active">Login</li>
-			</ul>
+		<div class="well">
+			<div class="confirmation">
+				<p class="lead">Thank you for placing your order.</p>
+				<p class="success">Your Order is placed successfully</p>
+			</div>
 		</div>
-		<div class="loginsection">
-			<hr class="soft" />
-
-			<c:if test="${param.regStatus == 'Success'}">
-				<h3>Registration Successful.Please Login to complete the
-					transaction.</h3>
-				<div class="row">
-					<div class="span1">&nbsp;</div>
-					<div class="span5">
-						<div class="well">
-							<form action="login" method="post">
-								<div class="control-group">
-									<label class="control-label" for="inputEmail">Email</label>
-									<div class="controls">
-										<input class="span3" type="text" name="inputEmail" id="inputEmail"
-											placeholder="E-mail Address">
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label" for="inputPassword">Password</label>
-									<div class="controls">
-										<input type="password" class="span3" name="password" id="inputPassword"
-											placeholder="Password">
-									</div>
-								</div>
-								<div class="control-group">
-									<div class="controls">
-										<button type="submit" class="btn btn-primary">Sign in</button>
-										<a href="forgetpass.html">Forget password?</a>
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</c:if>
-		</div>
-		<hr class="soft" />
 	</div>
 	</section>
 </body>

@@ -2,6 +2,7 @@ package com.shopping.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -65,13 +66,10 @@ public class DispatcherServlet extends HttpServlet {
 			// Retrieve all the items available in the cart
 			hs = request.getSession();
 			ShoppingCart cart = (ShoppingCart) hs.getAttribute("cart");
-
-			if (cart != null) {
-				RequestDispatcher rd = getServletContext()
-						.getRequestDispatcher(getURL);
-				rd.forward(request, response);
-			}
-
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(
+					getURL);
+			rd.forward(request, response);
+			return;
 		}
 		// If user requested checkout page
 		else if (userPath.equals("/checkout")) {
@@ -163,7 +161,7 @@ public class DispatcherServlet extends HttpServlet {
 		}
 		// If user request to purchase the products
 		else if (userPath.equals("/purchase")) {
-
+			response.sendRedirect("orderconfirm.jsp");
 		}
 		// If user registers
 		else if (userPath.equals("/register")) {
@@ -178,6 +176,17 @@ public class DispatcherServlet extends HttpServlet {
 			} else {
 				response.sendRedirect("checkout_unreg.jsp?regStatus=Fail");
 			}
+		}
+		// If user logs in
+		else if (userPath.equals("/login")) {
+			String email = request.getParameter("inputEmail");
+			String password = request.getParameter("password");
+
+			// CustomerService cs = new CustomerService();
+			// boolean flag = cs.registerCustomer(email, password);
+
+			response.sendRedirect("final_checkout.jsp");
+
 		}
 
 	}
