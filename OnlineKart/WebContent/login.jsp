@@ -55,39 +55,45 @@
 		<div class="loginsection">
 			<hr class="soft" />
 
-			<c:if test="${param.regStatus == 'Success'}">
-				<h3>Registration Successful.Please Login to complete the
-					transaction.</h3>
-				<div class="row">
-					<div class="span1">&nbsp;</div>
-					<div class="span5">
-						<div class="well">
-							<form action="login" method="post">
-								<div class="control-group">
-									<label class="control-label" for="inputEmail">Email</label>
-									<div class="controls">
-										<input class="span3" type="text" name="inputEmail" id="inputEmail"
-											placeholder="E-mail Address">
-									</div>
+			<c:choose>
+				<c:when test="${param.regStatus == 'Success'}">
+					<h3>Registration Successful.Please Login to complete the
+						transaction.</h3>
+				</c:when>
+				<c:otherwise>
+					<h3>Invalid Email/Password.Please Login with valid
+						credentials.</h3>
+				</c:otherwise>
+			</c:choose>
+			<div class="row">
+				<div class="span1">&nbsp;</div>
+				<div class="span5">
+					<div class="well">
+						<form action="login" method="post">
+							<div class="control-group">
+								<label class="control-label" for="inputEmail">Email</label>
+								<div class="controls">
+									<input class="span3" type="text" name="inputEmail"
+										id="inputEmail" placeholder="E-mail Address">
 								</div>
-								<div class="control-group">
-									<label class="control-label" for="inputPassword">Password</label>
-									<div class="controls">
-										<input type="password" class="span3" name="password" id="inputPassword"
-											placeholder="Password">
-									</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="inputPassword">Password</label>
+								<div class="controls">
+									<input type="password" class="span3" name="password"
+										id="inputPassword" placeholder="Password">
 								</div>
-								<div class="control-group">
-									<div class="controls">
-										<button type="submit" class="btn btn-primary">Sign in</button>
-										<a href="forgetpass.html">Forget password?</a>
-									</div>
+							</div>
+							<div class="control-group">
+								<div class="controls">
+									<button type="submit" class="btn btn-primary">Sign in</button>
+									<a href="forgetpass.html">Forget password?</a>
 								</div>
-							</form>
-						</div>
+							</div>
+						</form>
 					</div>
 				</div>
-			</c:if>
+			</div>
 		</div>
 		<hr class="soft" />
 	</div>

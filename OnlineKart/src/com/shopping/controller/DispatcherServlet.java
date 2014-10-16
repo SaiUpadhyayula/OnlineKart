@@ -182,10 +182,13 @@ public class DispatcherServlet extends HttpServlet {
 			String email = request.getParameter("inputEmail");
 			String password = request.getParameter("password");
 
-			// CustomerService cs = new CustomerService();
-			// boolean flag = cs.registerCustomer(email, password);
-
-			response.sendRedirect("final_checkout.jsp");
+			CustomerService cs = new CustomerService();
+			boolean flag = cs.verifyUser(email, password);
+			if(flag){
+			    response.sendRedirect("final_checkout.jsp");
+			}else{
+				response.sendRedirect("login.jsp?regStatus=Fail");
+			}
 
 		}
 

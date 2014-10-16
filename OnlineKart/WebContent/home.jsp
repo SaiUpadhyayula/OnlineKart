@@ -69,9 +69,10 @@
 						</span> <span class="headerCartItemsCountWord"><c:out
 									value="${cartItems==1?'item':'items'}" /></span> <b class="caret"></b></span></a>
 					<ul class="dropdown-menu">
-						<c:url var="cart" value="/cart"/>
+						<c:url var="cart" value="/cart" />
 						<li><a tabindex="-1" href="${cart}">View Cart</a></li>
-						<li><a tabindex="-1" href="checkout_unreg.jsp">Checkout Cart</a></li>
+						<li><a tabindex="-1" href="checkout_unreg.jsp">Checkout
+								Cart</a></li>
 					</ul></li>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"><span id="welcome"
@@ -128,7 +129,6 @@
 			</script>
 		</div>
 		<div class="container">
-
 			<div class="row">
 				<div class="span12">
 					<c:forEach var="products" items="${productsList}">
@@ -136,7 +136,7 @@
 							<c:param name="productId" value="${products.productId}" />
 						</c:url>
 						<div class="span3">
-							<img src="http://placehold.it/200x200" /> <a href="${url}">${products.productName}</a>
+							<img src="http://placehold.it/200x200" /></br> <a href="${url}">${products.productName}</a>
 						</div>
 					</c:forEach>
 
