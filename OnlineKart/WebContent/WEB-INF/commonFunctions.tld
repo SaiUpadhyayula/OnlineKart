@@ -12,4 +12,10 @@
 		<function-class>com.shopping.cart.ShoppingCart</function-class>
 		<function-signature>java.lang.Boolean checkProductInCart(javax.servlet.jsp.PageContext)</function-signature>
 	</function>
+	
+	<function>
+		<name>remove</name>
+		<function-class>com.shopping.cart.ShoppingCart</function-class>
+		<function-signature>remove(java.lang.Integer)</function-signature>
+	</function>
 </taglib>
