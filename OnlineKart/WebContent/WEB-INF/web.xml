@@ -58,6 +58,11 @@
 		<servlet-name>DispatcherServlet</servlet-name>
 		<url-pattern>/purchase</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<url-pattern>/remove</url-pattern>
+	</servlet-mapping>
+
 	<filter>
 		<display-name>ProductConfigurationFilter</display-name>
 		<filter-name>ProductConfigurationFilter</filter-name>

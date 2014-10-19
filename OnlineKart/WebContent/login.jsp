@@ -54,18 +54,53 @@
 		</div>
 		<div class="loginsection">
 			<hr class="soft" />
-
 			<c:choose>
-				<c:when test="${param.regStatus == 'Success'}">
-					<h3>Registration Successful.Please Login to complete the
-						transaction.</h3>
+				<c:when test="${regstatus == 'success' }">
+					<c:choose>
+						<c:when test="${param.regStatus == 'Success'}">
+							<h3>Registration Successful.Please Login to complete the
+								transaction.</h3>
+						</c:when>
+						<c:otherwise>
+							<h3>Invalid Email/Password.Please Login with valid
+								credentials.</h3>
+						</c:otherwise>
+					</c:choose>				
 				</c:when>
 				<c:otherwise>
-					<h3>Invalid Email/Password.Please Login with valid
-						credentials.</h3>
+					<c:redirect url="checkout_unreg.jsp"></c:redirect>
 				</c:otherwise>
 			</c:choose>
 			<div class="row">
+				<div class="span5">
+					<div class="well">
+						<c:if test="${param.regStatus=='Fail'}">
+							<p class="warning">Registration Unsuccessful.</p>
+						</c:if>
+						<h5>CREATE YOUR ACCOUNT</h5>
+						<form action="register" method="post">
+							<div class="control-group">
+								<label class="control-label" for="inputEmail">E-mail
+									Address</label>
+								<div class="controls">
+									<input class="span3" type="text" name="inputEmail"
+										id="inputEmail" placeholder="Enter you email" />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="inputEmail">Password</label>
+								<div class="controls">
+									<input class="span3" type="password" name="password"
+										id="password" placeholder="Password" />
+								</div>
+							</div>
+							<div class="controls">
+								<button type="submit" class="btn btn-primary">Create
+									Your Account</button>
+							</div>
+						</form>
+					</div>
+				</div>			
 				<div class="span1">&nbsp;</div>
 				<div class="span5">
 					<div class="well">

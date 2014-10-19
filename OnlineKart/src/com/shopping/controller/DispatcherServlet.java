@@ -172,6 +172,7 @@ public class DispatcherServlet extends HttpServlet {
 			boolean flag = cs.registerCustomer(email, password);
 
 			if (flag) {
+				request.setAttribute("regstatus", "success");
 				response.sendRedirect("login.jsp?regStatus=Success");
 			} else {
 				response.sendRedirect("checkout_unreg.jsp?regStatus=Fail");
@@ -184,12 +185,23 @@ public class DispatcherServlet extends HttpServlet {
 
 			CustomerService cs = new CustomerService();
 			boolean flag = cs.verifyUser(email, password);
-			if(flag){
-			    response.sendRedirect("final_checkout.jsp");
-			}else{
+			if (flag) {
+				HttpSession hs = request.getSession();
+				hs.setAttribute("email", email);
+				response.sendRedirect("final_checkout.jsp");
+			} else {
 				response.sendRedirect("login.jsp?regStatus=Fail");
 			}
 
+		}
+		// If user wants to remove an item from cart
+		else if (userPath.equals("/remove")) {
+			int pid = Integer.parseInt(request.getParameter("pid"));
+			ShoppingCart cart = (ShoppingCart) hs.getAttribute("cart");
+
+			if (cart != null) {
+				cart.remove(pid);
+			}
 		}
 
 	}

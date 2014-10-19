@@ -20,6 +20,11 @@
 	display: inline;
 	height: 20px;
 }
+
+#Login {
+	display: inline;
+	height: 20px;
+}
 </style>
 </head>
 <body>
@@ -74,14 +79,21 @@
 						<li><a tabindex="-1" href="checkout_unreg.jsp">Checkout
 								Cart</a></li>
 					</ul></li>
-				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#"><span id="welcome"
-						class="btn btn-default btn-sm">User Name<b class="caret"></b></span></a>
-					<ul class="dropdown-menu">
-						<li><a tabindex="-1" href="/">Account</a></li>
-						<li><a tabindex="-1" href="/">Orders</a></li>
-						<li><a tabindex="-1" href="/">Sign out</a></li>
-					</ul></li>
+				<li class="dropdown"><c:choose>
+						<c:when test="${empty email}">
+							<a href="login-register.jsp"><b>Login/Register</b></a>
+						</c:when>
+						<c:otherwise>
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span
+								id="welcome" class="btn btn-default btn-sm"><c:out
+										value="Hello ${email}" /><b class="caret"></b></span></a>
+							<ul class="dropdown-menu">
+								<li><a tabindex="-1" href="/">Account</a></li>
+								<li><a tabindex="-1" href="/">Orders</a></li>
+								<li><a tabindex="-1" href="/">Sign out</a></li>
+							</ul>
+						</c:otherwise>
+					</c:choose></li>
 			</ul>
 		</div>
 	</div>

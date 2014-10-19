@@ -51,156 +51,181 @@
 				<li class="active">Checkout</li>
 			</ul>
 		</div>
-		<div class="loginsection">
-			<h3>Please Login to complete the transaction.</h3>
-			<hr class="soft" />
-			<div class="row">
-				<div class="span5">
-					<div class="well">
-						<c:if test="${param.regStatus=='Fail'}">
-							<p class="warning">Registration Unsuccessful.</p>
-						</c:if>
-						<h5>CREATE YOUR ACCOUNT</h5>
-						<form action="register" method="post">
-							<div class="control-group">
-								<label class="control-label" for="inputEmail">E-mail
-									Address</label>
-								<div class="controls">
-									<input class="span3" type="text" name="inputEmail"
-										id="inputEmail" placeholder="Enter you email" />
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label" for="inputEmail">Password</label>
-								<div class="controls">
-									<input class="span3" type="password" name="password"
-										id="password" placeholder="Password" />
-								</div>
-							</div>
-							<div class="controls">
-								<button type="submit" class="btn btn-primary">Create
-									Your Account</button>
-							</div>
-						</form>
-					</div>
-				</div>
-				<div class="span1">&nbsp;</div>
-				<div class="span5">
-					<div class="well">
-						<h5>ALREADY REGISTERED ?</h5>
-						<form action="/login" method="post">
-							<div class="control-group">
-								<label class="control-label" for="inputEmail">Email</label>
-								<div class="controls">
-									<input class="span3" type="text" id="inputEmail"
-										placeholder="E-mail Address">
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label" for="inputPassword">Password</label>
-								<div class="controls">
-									<input type="password" class="span3" id="inputPassword"
-										placeholder="Password">
-								</div>
-							</div>
-							<div class="control-group">
-								<div class="controls">
-									<button type="submit" class="btn btn-primary">Sign in</button>
-									<a href="forgetpass.html">Forget password?</a>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<hr class="soft" />
-		<div class="review-payment">
-			<h2>Review Your Order</h2>
-		</div>
-		<div class="table-responsive cart_info">
-			<table class="table table-condensed">
-				<thead>
-					<tr class="cart_menu">
-						<td class="image">Product</td>
-						<td class="description">Description</td>
-						<td class="quantity">Quantity</td>
-						<td class="total">Total</td>
-						<td class="action"></td>
-						<td></td>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="cart_products" items="${cart.items}">
-						<c:set var="products" value="${cart_products.product}" />
+		<c:choose>
+			<c:when test="${empty cart}">
+				<table class="table table-condensed">
+					<tbody>
 						<tr>
-							<td class="cart_product"><a href=""><img
-									src="http://placehold.it/125x89" alt=""></a></td>
-							<td class="cart_description">
-								<h4>
-									<c:url var="url" value="/product">
-										<c:param name="productId" value="${products.productId}" />
-									</c:url>
-									<a href="${url}"><c:out value="${products.productName}" /></a>
-								</h4>
-								<p class="info">
-									Category:
-									<c:out value="${products.category}" />
-								</p>
-								<p class="info">
-									Manufacturer:
-									<c:out value="${products.productManufacturer}" />
-								</p>
-							</td>
-							<td class="cart_quantity">
-								<p class="info">
-									<c:out value="${cart_products.quantity}" />
-								</p>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">
-									<c:out value="${cart_products.total}" />
-								</p>
-							</td>
-							<td class="cart_delete"><a role="button" href="/cart"
-								class="btn btn-default" href="">Edit</a></td>
-						</tr>
-					</c:forEach>
-					<tr>
-						<td colspan="3">&nbsp;</td>
-						<td colspan="2">
-							<div class="well">
-								<table class="table table-condensed total-result">
-									<tr>
-										<td>Cart Sub Total</td>
-										<td>
-											<p>
-												Rs.
-												<c:out value="${cart.total}" />
-											</p>
-										</td>
-									</tr>
-									<tr class="shipping-cost">
-										<td>Shipping Cost</td>
-										<td>Free</td>
-									</tr>
-									<tr>
-										<td>Total</td>
-										<td>
-											<p>
-												Rs.
-												<c:out value="${cart.total}" />
-											</p>
-										</td>
-									</tr>
-								</table>
+							<div class="hero-unit">
+								<h3>No Items to Checkout!! Add Items to your shopping cart
+									and comeback!! :)</h3>
+								<a href="home.jsp" class="btn btn-primary btn-large">Continue
+									Shopping</a>
 							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<hr class="soft" />
+						</tr>
+					</tbody>
+				</table>
+			</c:when>
+			<c:otherwise>
+				<c:choose>
+					<c:when test="${empty email}">
+						<div class="loginsection">
+							<h3>Please Login to complete the transaction.</h3>
+							<hr class="soft" />
+							<div class="row">
+								<div class="span5">
+									<div class="well">
+										<c:if test="${param.regStatus=='Fail'}">
+											<p class="warning">Registration Unsuccessful.</p>
+										</c:if>
+										<h5>CREATE YOUR ACCOUNT</h5>
+										<form action="register" method="post">
+											<div class="control-group">
+												<label class="control-label" for="inputEmail">E-mail
+													Address</label>
+												<div class="controls">
+													<input class="span3" type="text" name="inputEmail"
+														id="inputEmail" placeholder="Enter you email" />
+												</div>
+											</div>
+											<div class="control-group">
+												<label class="control-label" for="inputEmail">Password</label>
+												<div class="controls">
+													<input class="span3" type="password" name="password"
+														id="password" placeholder="Password" />
+												</div>
+											</div>
+											<div class="controls">
+												<button type="submit" class="btn btn-primary">Create
+													Your Account</button>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="span1">&nbsp;</div>
+								<div class="span5">
+									<div class="well">
+										<h5>ALREADY REGISTERED?</h5>
+										<form action="login" method="post">
+											<div class="control-group">
+												<label class="control-label" for="inputEmail">Email</label>
+												<div class="controls">
+													<input class="span3" type="text" name="inputEmail"
+														id="inputEmail" placeholder="E-mail Address">
+												</div>
+											</div>
+											<div class="control-group">
+												<label class="control-label" for="inputPassword">Password</label>
+												<div class="controls">
+													<input type="password" class="span3" name="password"
+														id="inputPassword" placeholder="Password">
+												</div>
+											</div>
+											<div class="control-group">
+												<div class="controls">
+													<button type="submit" class="btn btn-primary">Sign
+														in</button>
+													<a href="forgetpass.html">Forget password?</a>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</c:when>
+					<c:otherwise></c:otherwise>
+				</c:choose>
+
+				<hr class="soft" />
+				<div class="review-payment">
+					<h2>Review Your Order</h2>
+				</div>
+				<div class="table-responsive cart_info">
+					<table class="table table-condensed">
+						<thead>
+							<tr class="cart_menu">
+								<td class="image">Product</td>
+								<td class="description">Description</td>
+								<td class="quantity">Quantity</td>
+								<td class="total">Total</td>
+								<td class="action"></td>
+								<td></td>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="cart_products" items="${cart.items}">
+								<c:set var="products" value="${cart_products.product}" />
+								<tr>
+									<td class="cart_product"><a href=""><img
+											src="http://placehold.it/125x89" alt=""></a></td>
+									<td class="cart_description">
+										<h4>
+											<c:url var="url" value="/product">
+												<c:param name="productId" value="${products.productId}" />
+											</c:url>
+											<a href="${url}"><c:out value="${products.productName}" /></a>
+										</h4>
+										<p class="info">
+											Category:
+											<c:out value="${products.category}" />
+										</p>
+										<p class="info">
+											Manufacturer:
+											<c:out value="${products.productManufacturer}" />
+										</p>
+									</td>
+									<td class="cart_quantity">
+										<p class="info">
+											<c:out value="${cart_products.quantity}" />
+										</p>
+									</td>
+									<td class="cart_total">
+										<p class="cart_total_price">
+											<c:out value="${cart_products.total}" />
+										</p>
+									</td>
+									<td class="cart_delete"><a role="button" href="/cart"
+										class="btn btn-default" href="">Edit</a></td>
+								</tr>
+							</c:forEach>
+							<tr>
+								<td colspan="3">&nbsp;</td>
+								<td colspan="2">
+									<div class="well">
+										<table class="table table-condensed total-result">
+											<tr>
+												<td>Cart Sub Total</td>
+												<td>
+													<p>
+														Rs.
+														<c:out value="${cart.total}" />
+													</p>
+												</td>
+											</tr>
+											<tr class="shipping-cost">
+												<td>Shipping Cost</td>
+												<td>Free</td>
+											</tr>
+											<tr>
+												<td>Total</td>
+												<td>
+													<p>
+														Rs.
+														<c:out value="${cart.total}" />
+													</p>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<hr class="soft" />
+			</c:otherwise>
+		</c:choose>
 	</div>
 	</section>
 </body>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://onlinekart.com/commonFunctions" prefix="f"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -232,7 +233,8 @@ body {
 							<tr>
 								<div class="hero-unit">
 									<h3>The Shopping Cart is Empty</h3>
-									<a href="home.jsp" class="btn btn-primary btn-large">Continue Shopping</a>
+									<a href="home.jsp" class="btn btn-primary btn-large">Continue
+										Shopping</a>
 								</div>
 							</tr>
 						</tbody>
@@ -271,9 +273,9 @@ body {
 									<td class="cart_quantity">
 										<div class="form-horizontal">
 											<form action="update" method="POST">
-												<input type="text" name="productid"
+												<input type="hidden" name="productid"
 													value="<c:out value="${products.productId}"/>" /><input
-													type="text" name="quantity" size="2" maxlength="2"
+													type="number" name="quantity" size="2" maxlength="2"
 													class="input-mini"
 													value="<c:out value="${cart_products.quantity}"/>" />
 												<button class="update btn btn-primary">Update</button>
@@ -292,14 +294,22 @@ body {
 											<c:out value="${cart_products.total}" />
 										</p>
 									</td>
-									<td class="cart_delete"><a class="cart_quantity_delete"
-										href=""><i class="fa fa-times"></i></a></td>
+									<td class="cart_delete">
+										<form action="remove" method="POST">
+											<input type="hidden" name="pid"
+												value="<c:out value="${product.productId}"/>" /> <a
+												class="cart_quantity_delete"><i class="fa fa-times"
+												id="remove"></i></a>
+										</form>
+									</td>
 								</tr>
 							</c:forEach>
 							<tr>
 								<td>&nbsp;</td>
-								<td><a role="button" href="checkout_unreg.jsp"id="checkoutbutton" class="btn btn-primary">Proceed
-										to Checkout</button></td>
+								<td><a role="button" href="checkout_unreg.jsp"
+									id="checkoutbutton" class="btn btn-primary">Proceed to
+										Checkout
+										</button></td>
 								<td><button id="continueshopping" id="continuebutton"
 										class="btn btn-primary pull-left">Continue Shopping</button>
 									<p id="subtotal_cart" class="lead">Total:</p></td>
@@ -318,26 +328,6 @@ body {
 	</div>
 	</section>
 	<script>
-		$(document).ready(function() {
-			$(".increment").on('click', function() {
-				var $incdec = $(this).closest("td").find(".input-mini");
-				if ($incdec.val() < 10) {
-					$incdec.val(parseInt($incdec.val()) + 1);
-				}
-			});
-
-			$(".decrement").on('click', function() {
-				var $incdec = $(this).closest("td").find(".input-mini");
-				if ($incdec.val() > 1) {
-					$incdec.val(parseInt($incdec.val()) - 1);
-				}
-			});
-
-			$('.update').on('click', function() {
-
-			});
-		});
-
 		$(function updateTotal() {
 			var $totprice = 0;
 			$('table#product_table > tbody > tr').each(function() {
@@ -351,6 +341,11 @@ body {
 				}
 			});
 			return false;
+		});
+
+		$('#remove').click(function() {
+			var itemToRemove = $(this).attr("data-id");
+
 		});
 
 		function ajax(options, callback) {
