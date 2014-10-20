@@ -73,7 +73,12 @@ public class DispatcherServlet extends HttpServlet {
 		}
 		// If user requested checkout page
 		else if (userPath.equals("/checkout")) {
-
+			hs = request.getSession();
+			ShoppingCart cart = (ShoppingCart) hs.getAttribute("cart");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(
+					"/checkout_unreg.jsp");
+			rd.forward(request, response);
+			return;
 		}
 		// If user request home page
 		else if (userPath.equals("/home")) {
@@ -201,6 +206,7 @@ public class DispatcherServlet extends HttpServlet {
 
 			if (cart != null) {
 				cart.remove(pid);
+				response.sendRedirect("cart.jsp");
 			}
 		}
 

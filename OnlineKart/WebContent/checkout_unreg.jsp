@@ -52,7 +52,7 @@
 			</ul>
 		</div>
 		<c:choose>
-			<c:when test="${empty cart}">
+			<c:when test="${cart.numberOfItems == 0}">
 				<table class="table table-condensed">
 					<tbody>
 						<tr>
@@ -185,12 +185,13 @@
 											<c:out value="${cart_products.total}" />
 										</p>
 									</td>
-									<td class="cart_delete"><a role="button" href="/cart"
+									<td class="cart_delete"><a role="button" href="cart"
 										class="btn btn-default" href="">Edit</a></td>
 								</tr>
 							</c:forEach>
 							<tr>
-								<td colspan="3">&nbsp;</td>
+								<td colspan="3"><a role="button" href="final_checkout.jsp"
+									class="btn btn-primary btn-large">Continue to Payment</a></td>
 								<td colspan="2">
 									<div class="well">
 										<table class="table table-condensed total-result">

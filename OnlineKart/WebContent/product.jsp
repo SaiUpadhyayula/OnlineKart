@@ -77,12 +77,12 @@ body {
 									value="${cartItems==1?'item':'items'}" /></span> <b class="caret"></b></span></a>
 					<ul class="dropdown-menu">
 						<li><a tabindex="-1" href="cart">View Cart</a></li>
-						<li><a tabindex="-1" href="/">Checkout Cart</a></li>
-						<li><a tabindex="-1" href="/">Clear Cart</a></li>
+						<li><a tabindex="-1" href="checkout">Checkout Cart</a></li>
 					</ul></li>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"><span id="welcome"
-						class="btn btn-default btn-sm">User Name<b class="caret"></b></span></a>
+						class="btn btn-default btn-sm"><c:out
+										value="Hello ${email}"/></span></a>
 					<ul class="dropdown-menu">
 						<li><a tabindex="-1" href="/">Account</a></li>
 						<li><a tabindex="-1" href="/">Orders</a></li>

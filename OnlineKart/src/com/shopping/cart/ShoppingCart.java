@@ -42,7 +42,7 @@ public class ShoppingCart {
 	public synchronized void remove(Integer productID) {
 		if (itemsMap.containsKey(productID)) {
 			ShoppingCartItem scItem = itemsMap.get(productID);
-			if (scItem.getQuantity() <= 0) {
+			if (scItem.getQuantity() <= 1) {
 				itemsMap.remove(productID);
 			} else {
 				scItem.decrementQuantity();

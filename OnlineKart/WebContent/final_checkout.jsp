@@ -71,8 +71,6 @@
 									value="${cartItems==1?'item':'items'}" /></span> <b class="caret"></b></span></a>
 					<ul class="dropdown-menu">
 						<li><a tabindex="-1" href="cart">View Cart</a></li>
-						<li><a tabindex="-1" href="/">Checkout Cart</a></li>
-						<li><a tabindex="-1" href="/">Clear Cart</a></li>
 					</ul></li>
 				<li class="dropdown"><c:choose>
 						<c:when test="${empty email}">
@@ -169,7 +167,7 @@
 											<c:out value="${cart_products.total}" />
 										</p>
 									</td>
-									<td class="cart_delete"><a role="button" href="/cart"
+									<td class="cart_delete"><a role="button" href="cart"
 										class="btn btn-default" href="">Edit</a></td>
 								</tr>
 							</c:forEach>

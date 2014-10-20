@@ -199,12 +199,11 @@ body {
 									value="${cartItems==1?'item':'items'}" /></span> <b class="caret"></b></span></a>
 					<ul class="dropdown-menu">
 						<li><a tabindex="-1" href="cart">View Cart</a></li>
-						<li><a tabindex="-1" href="/">Checkout Cart</a></li>
-						<li><a tabindex="-1" href="/">Clear Cart</a></li>
 					</ul></li>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"><span id="welcome"
-						class="btn btn-default btn-sm">User Name<b class="caret"></b></span></a>
+						class="btn btn-default btn-sm"><c:out
+								value="Hello ${email}" /></span></a>
 					<ul class="dropdown-menu">
 						<li><a tabindex="-1" href="/">Account</a></li>
 						<li><a tabindex="-1" href="/">Orders</a></li>
@@ -227,7 +226,7 @@ body {
 		</div>
 		<div class="table-responsive cart_table">
 			<c:choose>
-				<c:when test="${empty cart}">
+				<c:when test="${cart.numberOfItems == 0}">
 					<table class="table table-condensed">
 						<tbody>
 							<tr>
@@ -240,6 +239,7 @@ body {
 						</tbody>
 					</table>
 				</c:when>
+
 				<c:otherwise>
 					<table id="product_table" class="table table-condensed">
 						<thead>
@@ -276,7 +276,7 @@ body {
 												<input type="hidden" name="productid"
 													value="<c:out value="${products.productId}"/>" /><input
 													type="number" name="quantity" size="2" maxlength="2"
-													class="input-mini"
+													class="input-mini" max="10" min="1"
 													value="<c:out value="${cart_products.quantity}"/>" />
 												<button class="update btn btn-primary">Update</button>
 											</form>
@@ -297,9 +297,11 @@ body {
 									<td class="cart_delete">
 										<form action="remove" method="POST">
 											<input type="hidden" name="pid"
-												value="<c:out value="${product.productId}"/>" /> <a
-												class="cart_quantity_delete"><i class="fa fa-times"
-												id="remove"></i></a>
+												value="<c:out value="${product.productId}"/>" />
+											<button type="submit"
+												class="cart_quantity_delete btn btn-primary">
+												<i class="fa fa-times" id="remove"></i>
+											</button>
 										</form>
 									</td>
 								</tr>
