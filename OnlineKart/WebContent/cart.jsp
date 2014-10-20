@@ -256,7 +256,7 @@ body {
 								<c:set var="products" value="${cart_products.product}" />
 								<tr>
 									<td class="cart_product"><a href=""><img alt=""
-											src="http://placehold.it/125x89"></a></td>
+											src="images/meluha-small.jpg"></a></td>
 									<td class="cart_description">
 										<h4>
 											<a href=""><c:out value="${products.productName}" /></a>

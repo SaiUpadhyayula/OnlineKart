@@ -81,7 +81,7 @@
 								<c:param name="productId" value="${products.productId}" />
 							</c:url>
 							<div class="span3">
-								<img src="http://placehold.it/200x200" /> <a href="${url}">${products.productName}</a>
+								<img src="images/meluha-small.jpg" /> </br> <a href="${url}">${products.productName}</a>
 							</div>
 						</c:forEach>
 					</c:when>
@@ -91,7 +91,7 @@
 								<c:param name="productId" value="${products.productId}" />
 							</c:url>
 							<div class="span3">
-								<img src="http://placehold.it/200x200" /> <a href="${url}">${products.productName}</a>
+								<img src="images/meluha-small.jpg" /> </br> <a href="${url}">${products.productName}</a>
 							</div>
 						</c:forEach>
 					</c:otherwise>

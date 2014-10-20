@@ -158,7 +158,7 @@
 								<c:set var="products" value="${cart_products.product}" />
 								<tr>
 									<td class="cart_product"><a href=""><img
-											src="http://placehold.it/125x89" alt=""></a></td>
+											src="images/meluha-small.jpg" alt=""></a></td>
 									<td class="cart_description">
 										<h4>
 											<c:url var="url" value="/product">

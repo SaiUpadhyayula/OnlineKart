@@ -82,7 +82,7 @@ body {
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"><span id="welcome"
 						class="btn btn-default btn-sm"><c:out
-										value="Hello ${email}"/></span></a>
+								value="Hello ${email}" /></span></a>
 					<ul class="dropdown-menu">
 						<li><a tabindex="-1" href="/">Account</a></li>
 						<li><a tabindex="-1" href="/">Orders</a></li>
@@ -147,7 +147,7 @@ body {
 							</thead>
 							<tbody>
 								<tr class="active">
-									<td><img src="http://placehold.it/125x89" /></td>
+									<td><img src="images/meluha-small.jpg" /></td>
 									<td><input class="input-mini" type="text" placeholder="1"></td>
 									<td class="price">${product.productPrice}</td>
 								</tr>
@@ -176,7 +176,7 @@ body {
 				</div>
 			</div>
 			<div class="span6">
-				<img src="http://placehold.it/250x405" />
+				<img src="images/meluha.jpeg" />
 				<div class="carousel-bounding-box">
 					<div id="slidingcarousel" class="carousel slide"
 						style="width: px; margin: 0 auto">

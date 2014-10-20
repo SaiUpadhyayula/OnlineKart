@@ -106,24 +106,21 @@
 				style="width: 800px; margin: 0 auto">
 				<div class="carousel-inner">
 					<div class="item">
-						<img src="http://placehold.it/800x300" class="slide-image" />
+						<img src="http://www.realtyrendezvous.com/panoramic_view_of_lake_and_mountains_op_800x300.jpg" class="slide-image" />
 						<div class="carousel-caption">
-							<h4>Untitled</h4>
-							<p>Add content</p>
+							<h4>Panoramic View of Lake and Mountains</h4>							
 						</div>
 					</div>
 					<div class="item">
-						<img src="http://placehold.it/800x300" class="slide-image" />
+						<img src="http://www.organmountains.org/omm/wp-content/uploads/2012/03/Mount-Cox-2-Charlie-Kennedy-800x300.jpg" class="slide-image" />
 						<div class="carousel-caption">
-							<h4>Untitled</h4>
-							<p>Add content</p>
+							<h4>Mount Cox 2 Charlie Kennedy</h4>
 						</div>
 					</div>
 					<div class="item">
-						<img src="http://placehold.it/800x300" class="slide-image" />
+						<img src="http://www.organmountains.org/omm/wp-content/uploads/2012/03/Mount-Cox-2-Charlie-Kennedy-800x300.jpg" class="slide-image" />
 						<div class="carousel-caption">
-							<h4>Untitled</h4>
-							<p>Add content</p>
+							<h4>Panorama 1</h4>
 						</div>
 					</div>
 				</div>
@@ -148,7 +145,7 @@
 							<c:param name="productId" value="${products.productId}" />
 						</c:url>
 						<div class="span3">
-							<img src="http://placehold.it/200x200" /></br> <a href="${url}">${products.productName}</a>
+							<img src="images/meluha-small.jpg" /></br> <a href="${url}">${products.productName}</a>
 						</div>
 					</c:forEach>
 

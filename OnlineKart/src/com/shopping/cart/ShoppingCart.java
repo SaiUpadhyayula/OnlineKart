@@ -44,8 +44,6 @@ public class ShoppingCart {
 			ShoppingCartItem scItem = itemsMap.get(productID);
 			if (scItem.getQuantity() <= 1) {
 				itemsMap.remove(productID);
-			} else {
-				scItem.decrementQuantity();
 			}
 			numberOfItems--;
 		}
