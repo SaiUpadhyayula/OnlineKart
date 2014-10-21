@@ -144,6 +144,7 @@
 						<c:url var="url" value="/product">
 							<c:param name="productId" value="${products.productId}" />
 						</c:url>
+						
 						<div class="span3">
 							<img src="images/meluha-small.jpg" /></br> <a href="${url}">${products.productName}</a>
 						</div>

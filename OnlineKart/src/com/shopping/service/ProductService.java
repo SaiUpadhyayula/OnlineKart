@@ -159,7 +159,7 @@ public class ProductService {
 		}
 		return products;
 	}
-	
+
 	// Method to get Product Category
 	// based on Sub Category
 	public String getCategoryBySubCategory(String subCategory) {
@@ -169,13 +169,79 @@ public class ProductService {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, subCategory);
 			rs = ps.executeQuery();
-			while(rs.next()){
+			while (rs.next()) {
 				categoryName = rs.getString("productCategory");
 			}
 			ps.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return categoryName;
+	}
+
+	public List<String> getImageURL(int productId) {
+		conn = DBConnection.getConnecton();
+		String sql = "select imageName from images where productId=?";
+		List<String> imagesList = new ArrayList<String>();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, productId);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				imagesList.add(rs.getString("imageName"));
+			}
+			ps.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return imagesList;
 	}
 }
