@@ -172,7 +172,6 @@ public class ProductService {
 			while (rs.next()) {
 				categoryName = rs.getString("productCategory");
 			}
-			ps.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -214,7 +213,6 @@ public class ProductService {
 			while (rs.next()) {
 				imagesList.add(rs.getString("imageName"));
 			}
-			ps.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
