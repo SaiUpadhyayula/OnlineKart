@@ -12,7 +12,7 @@ Home Page
 
 Shopping Cart Page
 ------------------
-[![Image 2](https://raw.githubusercontent.com/SaiUpadhyayula/OnlineKart/master/OnlineKart/WebContent/images/large/101.jpg)](https://raw.githubusercontent.com/SaiUpadhyayula/OnlineKart/master/OnlineKart/WebContent/images/large/101.jpg)
+[![Image 2](https://raw.githubusercontent.com/SaiUpadhyayula/OnlineKart/master/OnlineKart/WebContent/images/cart.jpg)](https://raw.githubusercontent.com/SaiUpadhyayula/OnlineKart/master/OnlineKart/WebContent/images/cart.jpg)
 
 Product Page
 ------------
@@ -20,4 +20,4 @@ Product Page
 
 Payment Page
 ------------
-[![Image 4](https://raw.githubusercontent.com/SaiUpadhyayula/OnlineKart/master/OnlineKart/WebContent/images/product.jpg)](https://raw.githubusercontent.com/SaiUpadhyayula/OnlineKart/master/OnlineKart/WebContent/images/product.jpg)
+[![Image 4](https://raw.githubusercontent.com/SaiUpadhyayula/OnlineKart/master/OnlineKart/WebContent/images/payment.jpg)](https://raw.githubusercontent.com/SaiUpadhyayula/OnlineKart/master/OnlineKart/WebContent/images/payment.jpg)
