@@ -69,70 +69,7 @@
 			<c:otherwise>
 				<c:choose>
 					<c:when test="${empty email}">
-						<div class="loginsection">
-							<h3>Please Login to complete the transaction.</h3>
-							<hr class="soft" />
-							<div class="row">
-								<div class="span5">
-									<div class="well">
-										<c:if test="${param.regStatus=='Fail'}">
-											<p class="warning">Registration Unsuccessful.</p>
-										</c:if>
-										<h5>CREATE YOUR ACCOUNT</h5>
-										<form action="register" method="post">
-											<div class="control-group">
-												<label class="control-label" for="inputEmail">E-mail
-													Address</label>
-												<div class="controls">
-													<input class="span3" type="text" name="inputEmail"
-														id="inputEmail" placeholder="Enter you email" />
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label" for="inputEmail">Password</label>
-												<div class="controls">
-													<input class="span3" type="password" name="password"
-														id="password" placeholder="Password" />
-												</div>
-											</div>
-											<div class="controls">
-												<button type="submit" class="btn btn-primary">Create
-													Your Account</button>
-											</div>
-										</form>
-									</div>
-								</div>
-								<div class="span1">&nbsp;</div>
-								<div class="span5">
-									<div class="well">
-										<h5>ALREADY REGISTERED?</h5>
-										<form action="login" method="post">
-											<div class="control-group">
-												<label class="control-label" for="inputEmail">Email</label>
-												<div class="controls">
-													<input class="span3" type="text" name="inputEmail"
-														id="inputEmail" placeholder="E-mail Address">
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label" for="inputPassword">Password</label>
-												<div class="controls">
-													<input type="password" class="span3" name="password"
-														id="inputPassword" placeholder="Password">
-												</div>
-											</div>
-											<div class="control-group">
-												<div class="controls">
-													<button type="submit" class="btn btn-primary">Sign
-														in</button>
-													<a href="forgetpass.html">Forget password?</a>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
+						<c:redirect url="login-register.jsp"/>
 					</c:when>
 					<c:otherwise></c:otherwise>
 				</c:choose>
@@ -158,7 +95,7 @@
 								<c:set var="products" value="${cart_products.product}" />
 								<tr>
 									<td class="cart_product"><a href=""><img
-											src="images/small/${productID}.jpg" alt=""></a></td>
+											src="images/small/${products.productId}.jpg" alt=""></a></td>
 									<td class="cart_description">
 										<h4>
 											<c:url var="url" value="/product">

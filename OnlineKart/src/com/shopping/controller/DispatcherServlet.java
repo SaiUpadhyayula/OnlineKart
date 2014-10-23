@@ -1,6 +1,7 @@
 package com.shopping.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -83,7 +84,13 @@ public class DispatcherServlet extends HttpServlet {
 		// If user request home page
 		else if (userPath.equals("/home")) {
 			ProductService productService = new ProductService();
-			List<Product> productsList = productService.getAllProducts();
+			List<Product> productsList = null;
+			try {
+				productsList = productService.getAllProducts();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			getServletContext().setAttribute("productsList", productsList);
 
 		}
@@ -101,6 +108,15 @@ public class DispatcherServlet extends HttpServlet {
 					product.getCategory());
 			getServletContext().setAttribute("productSubCategory",
 					product.getSubCategory());
+		}
+		// If user request Logout
+		else if (userPath.equals("/logout")){
+			request.getSession().invalidate();
+			request.getSession().removeAttribute("email");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(
+					"/home.jsp");
+			rd.forward(request, response);
+			return;			
 		}
 
 		// Forward the request to appropriate
@@ -165,6 +181,8 @@ public class DispatcherServlet extends HttpServlet {
 		}
 		// If user request to purchase the products
 		else if (userPath.equals("/purchase")) {
+			ShoppingCart cart = (ShoppingCart) hs.getAttribute("cart");
+			cart.clear();	
 			response.sendRedirect("orderconfirm.jsp");
 		}
 		// If user registers
@@ -174,7 +192,7 @@ public class DispatcherServlet extends HttpServlet {
 
 			CustomerService cs = new CustomerService();
 			boolean flag = cs.registerCustomer(email, password);
-
+			
 			if (flag) {
 				request.setAttribute("regstatus", "success");
 				response.sendRedirect("login.jsp?regStatus=Success");

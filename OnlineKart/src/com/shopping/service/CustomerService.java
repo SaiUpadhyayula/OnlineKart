@@ -38,14 +38,6 @@ public class CustomerService {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 		return false;
 	}
@@ -74,14 +66,6 @@ public class CustomerService {
 			try {
 				if (ps != null) {
 					ps.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			try {
-				if (conn != null) {
-					conn.close();
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

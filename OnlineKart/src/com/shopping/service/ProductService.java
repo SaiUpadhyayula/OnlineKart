@@ -3,6 +3,7 @@ package com.shopping.service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +16,14 @@ public class ProductService {
 	private List<Product> products = null;
 	private List<Category> categories = null;
 	private List<String> subCategories = null;
-	private Connection conn = null;
-	private PreparedStatement ps = null;
-	private ResultSet rs = null;
-	private String sql;
 	private String categoryName;
 
 	// Method to get all products available
-	public List<Product> getAllProducts() {
+	public List<Product> getAllProducts() throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql;
 		conn = DBConnection.getConnecton();
 		sql = "select * from products";
 		products = new ArrayList<Product>();
@@ -45,29 +46,14 @@ public class ProductService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (rs != null) {
+				rs.close();
 			}
+			if (ps != null) {
+				ps.close();
+			}
+	
 
-			try {
-				if (ps != null) {
-					ps.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 
 		return products;
@@ -76,6 +62,10 @@ public class ProductService {
 
 	// Method to get the required Product Details
 	public Product getProductDetails(int productId) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql;
 		conn = DBConnection.getConnecton();
 		Product p = new Product();
 		sql = "select productName,productPrice,productSummary,productCategory,productSubCategory,productManufacturer from products where productId=?";
@@ -112,26 +102,24 @@ public class ProductService {
 				e.printStackTrace();
 			}
 
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+
 		}
 		return p;
 	}
 
 	// Method to get all the available Categories
 	public List<Category> getAllCategories() {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql;
 		conn = DBConnection.getConnecton();
-		String sql = "select productCategory from category";
+		sql = "select productCategory from category";
 		categories = new ArrayList<Category>();
 
 		try {
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
 			while (rs.next()) {
 				Category c = new Category(rs.getString("productCategory"));
 				categories.add(c);
@@ -155,21 +143,19 @@ public class ProductService {
 				e.printStackTrace();
 			}
 
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+	
 		}
 		return categories;
 	}
 
 	// Method to get all the available Subcategories under a Category
 	public List<String> getSubCategory(Category category) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql;
 		conn = DBConnection.getConnecton();
-		String sql = "SELECT productSubCategory FROM subcategory s where s.productCategory = ? ";
+		sql = "SELECT productSubCategory FROM subcategory s where s.productCategory = ? ";
 
 		try {
 			ps = conn.prepareStatement(sql);
@@ -197,22 +183,18 @@ public class ProductService {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 		return subCategories;
 	}
 
 	// Method to get all the Products based on specified SubCategory
 	public List<Product> getProductBySubCategory(String subCategory) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql;
 		conn = DBConnection.getConnecton();
-		String sql = "select productID,productName,productPrice,productSummary,productCategory,productManufacturer from products where productSubCategory=?";
+		sql = "select productID,productName,productPrice,productSummary,productCategory,productManufacturer from products where productSubCategory=?";
 		products = new ArrayList<Product>();
 		try {
 			ps = conn.prepareStatement(sql);
@@ -243,21 +225,18 @@ public class ProductService {
 				e.printStackTrace();
 			}
 
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 		return products;
 	}
 
 	// Method to get all the Products based on specified SubCategory
 	public List<Product> getProductByCategory(String category) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql;
 		conn = DBConnection.getConnecton();
-		String sql = "select productID,productName,productPrice,productSummary,productCategory,productManufacturer from products where productCategory=?";
+		sql = "select productID,productName,productPrice,productSummary,productCategory,productManufacturer from products where productCategory=?";
 		products = new ArrayList<Product>();
 		try {
 			ps = conn.prepareStatement(sql);
@@ -279,22 +258,7 @@ public class ProductService {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
-			try {
-				if (ps != null) {
-					ps.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+	
 		}
 		return products;
 	}
@@ -302,8 +266,12 @@ public class ProductService {
 	// Method to get Product Category
 	// based on Sub Category
 	public String getCategoryBySubCategory(String subCategory) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql;
 		conn = DBConnection.getConnecton();
-		String sql = "select productCategory from subcategory where productSubCategory=?";
+		sql = "select productCategory from subcategory where productSubCategory=?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, subCategory);
@@ -322,21 +290,6 @@ public class ProductService {
 				e.printStackTrace();
 			}
 
-			try {
-				if (ps != null) {
-					ps.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 		return categoryName;
 	}
