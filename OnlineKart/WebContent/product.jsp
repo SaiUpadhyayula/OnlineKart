@@ -81,8 +81,15 @@ body {
 					</ul></li>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"><span id="welcome"
-						class="btn btn-default btn-sm"><c:out
-								value="Hello ${email}" /></span></a>
+						class="btn btn-default btn-sm"> <c:choose>
+								<c:when test="${empty email}">
+									<c:out value="Hello Guest" />
+								</c:when>
+								<c:otherwise>
+									<c:out value="Hello ${email}" />
+								</c:otherwise>
+							</c:choose>
+					</span></a>
 					<ul class="dropdown-menu">
 						<li><a tabindex="-1" href="/">Account</a></li>
 						<li><a tabindex="-1" href="/">Orders</a></li>
