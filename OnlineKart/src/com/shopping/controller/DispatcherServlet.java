@@ -84,14 +84,7 @@ public class DispatcherServlet extends HttpServlet {
 		else if (userPath.equals("/home")) {
 			ProductService productService = new ProductService();
 			List<Product> productsList = productService.getAllProducts();
-			HashMap<Long,List<String>> imagesMap = new HashMap<Long,List<String>>();
-			// Iterate through the list of products and retrieve the Image URL's
-			for (Product product : productsList) {
-				List<String> imagesList = productService.getImageURL(product.getProductId());				
-				imagesMap.put((long) product.getProductId(), imagesList);
-			}
 			getServletContext().setAttribute("productsList", productsList);
-			getServletContext().setAttribute("images", imagesMap);
 
 		}
 		// If user request product page

@@ -144,9 +144,8 @@
 						<c:url var="url" value="/product">
 							<c:param name="productId" value="${products.productId}" />
 						</c:url>
-						<c:set var="imageMap" value="${images}"/>
 						<div class="span3">
-							<img src="${imageMap[products.productId][1]}" /></br> <a href="${url}">${products.productName}</a>
+							<img src="images/small/${products.productId}.jpg"/></br> <a href="${url}">${products.productName}</a>
 						</div>
 					</c:forEach>
 

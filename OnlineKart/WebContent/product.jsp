@@ -147,7 +147,7 @@ body {
 							</thead>
 							<tbody>
 								<tr class="active">
-									<td><img src="images/meluha-small.jpg" /></td>
+									<td><img src="images/small/${productID}.jpg" /></td>
 									<td><input class="input-mini" type="text" placeholder="1"></td>
 									<td class="price">${product.productPrice}</td>
 								</tr>
@@ -176,7 +176,8 @@ body {
 				</div>
 			</div>
 			<div class="span6">
-				<img src="images/meluha.jpeg" />
+				<img alt="${products.productName}"
+					src="images/large/${productID}.jpg" />
 				<div class="carousel-bounding-box">
 					<div id="slidingcarousel" class="carousel slide"
 						style="width: px; margin: 0 auto">

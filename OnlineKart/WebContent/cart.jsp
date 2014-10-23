@@ -255,8 +255,8 @@ body {
 							<c:forEach var="cart_products" items="${cart.items}">
 								<c:set var="products" value="${cart_products.product}" />
 								<tr>
-									<td class="cart_product"><a href=""><img alt=""
-											src="images/meluha-small.jpg"></a></td>
+									<td class="cart_product"><a href=""><img alt="${products.productName}"
+											src="images/small/${products.productId}.jpg" /></a></td>
 									<td class="cart_description">
 										<h4>
 											<a href=""><c:out value="${products.productName}" /></a>

@@ -44,6 +44,30 @@ public class ProductService {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		return products;
@@ -69,10 +93,32 @@ public class ProductService {
 				p.setSubCategory(rs.getString(5));
 				p.setProductManufacturer(rs.getString(6));
 			}
-			ps.close();
-			System.out.println(p.getProductName());
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return p;
 	}
@@ -90,9 +136,32 @@ public class ProductService {
 				Category c = new Category(rs.getString("productCategory"));
 				categories.add(c);
 			}
-			ps.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return categories;
 	}
@@ -112,6 +181,30 @@ public class ProductService {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return subCategories;
 	}
@@ -131,9 +224,32 @@ public class ProductService {
 						rs.getString(6));
 				products.add(p);
 			}
-			ps.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return products;
 	}
@@ -153,9 +269,32 @@ public class ProductService {
 						rs.getString(6));
 				products.add(p);
 			}
-			ps.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return products;
 	}
@@ -200,46 +339,5 @@ public class ProductService {
 			}
 		}
 		return categoryName;
-	}
-
-	public List<String> getImageURL(int productId) {
-		conn = DBConnection.getConnecton();
-		String sql = "select imageName from images where productId=?";
-		List<String> imagesList = new ArrayList<String>();
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setInt(1, productId);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				imagesList.add(rs.getString("imageName"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			try {
-				if (ps != null) {
-					ps.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return imagesList;
 	}
 }
