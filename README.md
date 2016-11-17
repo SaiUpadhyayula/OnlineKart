@@ -4,6 +4,10 @@ OnlineKart
 Simple Online Shopping Cart written in plain old java web technologies (Java Servlets, JSP, JSTL, JDBC)
 and HTML5, jQuery, Bootstrap 2.2
 
+A similar shopping cart using Spring Framework
+
+https://github.com/SaiUpadhyayula/SpringShoppingStore
+
 ### Screenshots
 
 Home Page
